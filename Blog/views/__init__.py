@@ -1,1 +1,1 @@
-from . import blog_list
+from . import post_list

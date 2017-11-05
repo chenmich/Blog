@@ -1,0 +1,9 @@
+{% extends 'base_for_blog.html' %}
+
+{% block left_content %}
+    <ul>
+        {% for blog_view in blog_views %}
+        <li><a> {{blog_view.title}} </a></li>
+        {% endfor %}
+    </ul>
+{% endblock left_content %}
