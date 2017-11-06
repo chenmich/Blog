@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
+  
+app = Flask(__name__)
+login_manager = LoginManager(app)
+Bootstrap(app)
 
-def create_app():    
-    app = Flask(__name__)
-    Bootstrap(app)
-    return app
 
 from Blog import views

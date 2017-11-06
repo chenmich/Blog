@@ -1,4 +1,3 @@
-from Blog import create_app
+from Blog import app
 
-app = create_app()
 app.run()
