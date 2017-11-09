@@ -1,0 +1,33 @@
+{% extends "bootstrap/base.html" %} 
+{% block title %}
+    注册
+{% endblock title %}
+{% block content %}
+<h2 class='text-center'>注册用户</h2>
+<div class='container text-center'>
+    <form method="POST" class='text-left' >
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.name.label }} {{ form.name(size=10) }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label}}
+            {{ form.password(size=10)}}
+        </div>
+        <div class="form-group">
+            {{ form.check_password.label }}
+            {{ form.check_password(size=10)}}
+        </div>
+        <div class="form-group">
+            {{ form.e_mail.label }}
+            {{ form.e_mail(size=80)}}
+        </div>
+        <div class="form-group">
+                <input type="submit" value="注册" class='btn btn-success'>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock content %}
