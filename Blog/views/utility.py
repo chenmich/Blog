@@ -8,5 +8,5 @@ def get_post_views():
     views = []
     for n in range(0, 4):
         view = BlogView(titles[n])
-        views.append(views)
+        views.append(view)
     return views
