@@ -8,7 +8,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80))
     e_mail = db.Column(db.String(140))
-    password_hash = db.Column(db.string(128))
+    password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     
     @property
@@ -20,6 +20,6 @@ class User(db.Model):
     
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
     def __repr__(self):
         return '<User %r>' % self.username
