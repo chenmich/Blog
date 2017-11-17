@@ -1,11 +1,19 @@
 from Blog import app
 from Blog import db
 
+permissions = db.Table('permissions',
+    db.Column('role_id', db.Integer, db.ForeignKey('role.id')),
+    db.Column('permission_id', db.Integer, db.ForeignKey('permission.id'))
+)
+
+
 class Role(db.Model):
-    __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    users = db.relationship('User', backref='role')
-    
-    def __repr__(self):
-        return '<Role %r>' % self.name
+    rolename= db.Column(db.String(20))
+    permissions = db.relationship('Permission', secondary=permissions, lazy='subquery',
+        backref=db.backref('role', lazy=True))
+
+class Permission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    permission = db.Column(db.String(20))
+
