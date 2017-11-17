@@ -1,5 +1,6 @@
 from Blog import app
 from Blog import db
+from .user import User
 
 class role_name():
     admin = 'Administrator'
@@ -25,6 +26,10 @@ class Role(db.Model):
     rolename= db.Column(db.String(20))
     permissions = db.relationship('Permission', secondary=permissions, lazy='subquery',
         backref=db.backref('role', lazy=True))
+    users = db.relationship('User', backref='role')
+
+    def __repr__(self):
+        return '<Role %r>' % self.rolename
 
 class Permission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
