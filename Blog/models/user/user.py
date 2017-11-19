@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
         return self.username
 
     def __repr__(self):
-        return '<Role %r>' % self.username
+        return '<User %r>' % self.username
 
 
 @login_manager.user_loader

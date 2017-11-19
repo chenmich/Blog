@@ -10,8 +10,8 @@ from Blog.models.user import Role, User, role_name
 
 class userRegisterForm(FlaskForm):
     name = StringField(label='用户名称', validators=[DataRequired()])
-    password = PasswordField(label='登录密码')
-    check_password = PasswordField(label='确定密码')
+    password = PasswordField(label='登录密码', validators=[DataRequired()])
+    check_password = PasswordField(label='确定密码', validators=[EqualTo('password', '输入的两个密码不一致')])
     e_mail = StringField(label='电子邮件', validators=[Email()])
 
 
@@ -21,8 +21,7 @@ def user_register():
     if form.validate_on_submit():
         user =  User.query.filter_by(username=form.name.data).first()
         if user is  None:
-            common_role = Role.query.filter_by(rolename=role_name.common).first()
-            
+            common_role = Role.query.filter_by(rolename=role_name.common).first()            
             register_user = _create_register_user(
                 username=form.name.data,
                 password=form.password.data,
