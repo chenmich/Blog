@@ -1,4 +1,4 @@
-from flask import redirect, render_template
+from flask import redirect, render_template, flash
 from flask_login import login_user, current_user
 from flask_wtf.form import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField, BooleanField
@@ -18,9 +18,11 @@ def user_login():
     form = userLoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.name.data).first()
-        if user is None:
-            pass
-                   
+        if user is not None  and   user.verify_password(form.password.data):
+            login_user(user, form.remember_me.data)
+        else:
+            flash("用户名称/密码不正确")
+                  
     return render_template('user_login.html', form=form)
         
 
