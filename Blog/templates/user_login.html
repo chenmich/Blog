@@ -3,7 +3,9 @@
     登录
 {% endblock title %}
 {% block content %}
-<h2 class='text-center'>登录用户</h2>
+<div class='page-header'>
+    <h2>用户登录</h2>
+</div>
 <div class='container text-center'>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -15,11 +17,16 @@
     <form method="POST" class='text-left' >
         {{ form.csrf_token }}
         <div class="form-group">
-            {{ form.name.label }} {{ form.name(size=10) }}
+            {{ form.name.label }} {{ form.name(size=20) }}
         </div>
         <div class="form-group">
             {{ form.password.label}}
-            {{ form.password(size=10)}}
+            {{ form.password(size=20)}}
+        </div>
+        <div class="form-group">
+            {{form.remember_me.label}}
+            {{form.remember_me()}}
+            
         </div>
         <div class="form-group">
                 <input type="submit" value='登录' class='btn btn-success'>
