@@ -125,11 +125,36 @@ class test_user_post_relationship(unittest.TestCase):
         common_role = Role.query.filter_by(rolename=role_name.common).first()
         self.assertEqual(len(common_role.permissions), 3)
         self.assertIsInstance(common_role.permissions[0], Permission)
-        
 
-        
-        
-    
-        
+    def test_user_post_relationship(self):
+        posts = []
+        post_titles = ['the first post', 'the second post', 'the third post',
+                        'the fouth post', 'the fifth post', 'the sixth post',
+                        'the seventh post', 'the eigth post', 'the nineth post', 'the tenth post'] 
+        for i in range(0, 9):
+            posts.append(Post(title=post_titles[i]))
+
+        micheal = User.query.filter_by(username='micheal').first()
+        lrq = User.query.filter_by(username='lrq').first()
+        kfl = User.query.filter_by(username='kfl').first()
+        zyq = User.query.filter_by(username='zyq').first()
+        zl = User.query.filter_by(username='zl').first()
+        ny = User.query.filter_by(username='ny').first()
+        lzj = User.query.filter_by(username='lzj').first()
+
+        posts[0].users.append(micheal)
+        posts[1].users.append(micheal)
+        posts[1].users.append(zyq)
+        posts[3].users.append(zyq)
+
+        db.session.add_all(posts)
+        db.session.commit()
+
+        self.assertEqual(len(posts[0].users), 1)
+        self.assertEqual(len(posts[1].users), 2)
+        self.assertEqual(len(micheal.posts), 2)
+        self.assertEqual(len(zyq.posts), 2)
+
+
 if __name__ == '__main__':
     unittest.main()
