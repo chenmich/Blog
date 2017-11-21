@@ -60,7 +60,4 @@ blog.db.session.add(writing_permission)
 
 blog.db.session.commit()
 
-for role in blog.models.user.Role.query.all():
-    print(role.id, role.rolename)
-    for permission in role.permissions:
-        print("     ", permission.id, permission.permission)
+
