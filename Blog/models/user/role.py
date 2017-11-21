@@ -17,8 +17,8 @@ class permission_name():
     admin ='ADMINSTER'
 
 permissions = db.Table('permissions',
-    db.Column('role_id', db.Integer, db.ForeignKey('role.id')),
-    db.Column('permission_id', db.Integer, db.ForeignKey('permission.id'))
+    db.Column('role_id', db.Integer, db.ForeignKey('role.id'), primary_key=True),
+    db.Column('permission_id', db.Integer, db.ForeignKey('permission.id'), primary_key=True)
 )
 
 
