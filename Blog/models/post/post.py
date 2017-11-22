@@ -8,11 +8,12 @@ post_user = db.Table('post_user',
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
-    
-    #perhaps there are a fewer writer for this post
-    users = db.relationship('User', secondary=post_user, lazy='subquery',
-        backref=db.backref('post', lazy=True))
 
+   
+    #perhaps there are a fewer writer for this post
+    other_writers = db.relationship('User', secondary=post_user, lazy='subquery',
+        backref=db.backref('post', lazy=True))
+    
     def __repr__(self):
         return '<Post %r>' % self.title
 

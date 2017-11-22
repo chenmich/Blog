@@ -16,6 +16,10 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', secondary=post_user, lazy='subquery',
                                         backref=db.backref('user', lazy=True))
     
+    
+
+
+    
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')

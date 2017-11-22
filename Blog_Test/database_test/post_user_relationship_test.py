@@ -14,7 +14,8 @@ from Blog.models.user.role import Role, role_name, Permission, permission_name
 
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'test.dat')
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
+        #'sqlite:///' + os.path.join(basedir, 'test.dat')
         app.config['WTF_CSRF_ENABLED'] = False
         app.testing = True        
         self.app = app.test_client()
@@ -126,14 +127,7 @@ class test_user_post_relationship(unittest.TestCase):
         self.assertEqual(len(common_role.permissions), 3)
         self.assertIsInstance(common_role.permissions[0], Permission)
 
-    def test_user_post_relationship(self):
-        posts = []
-        post_titles = ['the first post', 'the second post', 'the third post',
-                        'the fouth post', 'the fifth post', 'the sixth post',
-                        'the seventh post', 'the eigth post', 'the nineth post', 'the tenth post'] 
-        for i in range(0, 9):
-            posts.append(Post(title=post_titles[i]))
-
+    def test_otherwriters_post_relationship(self):
         micheal = User.query.filter_by(username='micheal').first()
         lrq = User.query.filter_by(username='lrq').first()
         kfl = User.query.filter_by(username='kfl').first()
@@ -142,18 +136,28 @@ class test_user_post_relationship(unittest.TestCase):
         ny = User.query.filter_by(username='ny').first()
         lzj = User.query.filter_by(username='lzj').first()
 
-        posts[0].users.append(micheal)
-        posts[1].users.append(micheal)
-        posts[1].users.append(zyq)
-        posts[3].users.append(zyq)
+        posts = []
+        post_titles = ['the first post', 'the second post', 'the third post',
+                        'the fouth post', 'the fifth post', 'the sixth post',
+                        'the seventh post', 'the eigth post', 'the nineth post', 
+                        'the tenth post'] 
+        
+        for i in range(0, 9):
+            post = Post(title=post_titles[i])
+            posts.append(post)     
+
+        posts[0].other_writers.append(micheal)
+        posts[0].other_writers.append(zyq)
+        posts[1].other_writers.append(lrq)
+        posts[1].other_writers.append(micheal)
 
         db.session.add_all(posts)
         db.session.commit()
 
-        self.assertEqual(len(posts[0].users), 1)
-        self.assertEqual(len(posts[1].users), 2)
+        self.assertEqual(len(posts[0].other_writers), 2)
         self.assertEqual(len(micheal.posts), 2)
-        self.assertEqual(len(zyq.posts), 2)
+
+        
 
 
 if __name__ == '__main__':

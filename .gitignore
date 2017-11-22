@@ -100,5 +100,3 @@ ENV/
 
 venv/
 .vscode/
-
-test.dat
