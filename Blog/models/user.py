@@ -2,7 +2,6 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from Blog import app, db, login_manager
-from Blog.models.post.post import Post, post_user
 
 
 class User(UserMixin, db.Model):
@@ -13,12 +12,7 @@ class User(UserMixin, db.Model):
     #the one for one to many
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)    
     #the many for many to many
-    posts = db.relationship('Post', secondary=post_user, lazy='subquery',
-                                        backref=db.backref('user', lazy=True))
-    
-    
-
-
+    posts = db.relationship('Post_User', back_populates='writer')
     
     @property
     def password(self):
@@ -43,3 +37,4 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def user_loader(username):
     return User.query.filter_by(username=username).first()
+

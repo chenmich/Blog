@@ -7,10 +7,7 @@ import unittest
 
 from config import basedir
 from Blog import db, app
-from Blog.models.post.post import Post
-from Blog.models.user.user import User
-from Blog.models.user.role import Role, role_name, Permission, permission_name
-
+from Blog.models import Role, role_name, Permission, permission_name, User 
 
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
@@ -116,46 +113,7 @@ class test_user_post_relationship(unittest.TestCase):
 
         db.session.commit()
     
-    def test_role_user_relationship(self):
-        admin_role = Role.query.filter_by(rolename=role_name.admin).first()
-        self.assertEqual(len(admin_role.users), 4)
-        micheal = User.query.filter_by(username='micheal').first()
-        self.assertEqual(micheal.role.rolename, role_name.admin)
-
-    def test_role_permission_relationship(self):
-        common_role = Role.query.filter_by(rolename=role_name.common).first()
-        self.assertEqual(len(common_role.permissions), 3)
-        self.assertIsInstance(common_role.permissions[0], Permission)
-
-    def test_otherwriters_post_relationship(self):
-        micheal = User.query.filter_by(username='micheal').first()
-        lrq = User.query.filter_by(username='lrq').first()
-        kfl = User.query.filter_by(username='kfl').first()
-        zyq = User.query.filter_by(username='zyq').first()
-        zl = User.query.filter_by(username='zl').first()
-        ny = User.query.filter_by(username='ny').first()
-        lzj = User.query.filter_by(username='lzj').first()
-
-        posts = []
-        post_titles = ['the first post', 'the second post', 'the third post',
-                        'the fouth post', 'the fifth post', 'the sixth post',
-                        'the seventh post', 'the eigth post', 'the nineth post', 
-                        'the tenth post'] 
-        
-        for i in range(0, 9):
-            post = Post(title=post_titles[i])
-            posts.append(post)     
-
-        posts[0].other_writers.append(micheal)
-        posts[0].other_writers.append(zyq)
-        posts[1].other_writers.append(lrq)
-        posts[1].other_writers.append(micheal)
-
-        db.session.add_all(posts)
-        db.session.commit()
-
-        self.assertEqual(len(posts[0].other_writers), 2)
-        self.assertEqual(len(micheal.posts), 2)
+    
 
         
 

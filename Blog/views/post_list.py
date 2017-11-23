@@ -1,6 +1,6 @@
 from Blog import app
 from flask import render_template
-from .utility import get_post_views
+from .utility import get_post_views, BlogView
 from flask_login import current_user
 
 @app.route('/')

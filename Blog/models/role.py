@@ -1,7 +1,6 @@
 from Blog import app
 from Blog import db
 
-from Blog.models.user.user  import User
 
 class role_name():
     admin = 'Administrator'

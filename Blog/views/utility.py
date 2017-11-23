@@ -1,4 +1,4 @@
-from ..models.views.blog_view import BlogView
+from ..models.blog_view import BlogView
 
 def get_post_views():
     titles = ['混凝土中的气泡与引所剂之我见'
