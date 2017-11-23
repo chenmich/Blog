@@ -1,18 +1,17 @@
 import os
 import sys
 sys.path.append('.')
-
 import unittest
-
-
 from config import basedir
 from Blog import db, app
-from Blog.models import Role, role_name, Permission, permission_name, User 
+from Blog.models import Role, role_name, Permission, permission_name, User, Post, Post_User
+
 
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
         app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
-        #'sqlite:///' + os.path.join(basedir, 'test.dat')
+        #'sqlite:///' + os.path.join(basedir, 'test.dat') 
+        
         app.config['WTF_CSRF_ENABLED'] = False
         app.testing = True        
         self.app = app.test_client()
@@ -21,7 +20,7 @@ class test_user_post_relationship(unittest.TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-    def _create_base_row(self):        
+    def _create_base_row(self):    
         #roles
         admin_role = Role(rolename=role_name.admin)
         anonymous_role = Role(rolename=role_name.anonymous)
@@ -110,13 +109,21 @@ class test_user_post_relationship(unittest.TestCase):
         
         db.session.add_all([micheal, lrq, zyq, 
                             kfl, zl, ny, lzj])
-
         db.session.commit()
-    
-    
 
+    def test_user_role(self):
+        #test user to role
+        micheal  = User.query.filter_by(username='micheal').first()
+        self.assertIsInstance(micheal.role, Role)
+        self.assertEqual(micheal.role.rolename, role_name.admin)
+        #test role to users
+        admin_role = Role.query.filter_by(rolename=role_name.admin).first()
+        self.assertGreaterEqual(len(admin_role.users), 1)
+    def test_post_user(self):
+        #the bidirectory relationship of post_user with extra data is many to many
+        #i use a association class Post_User
+        #the tests must be for bidirectory
         
-
 
 if __name__ == '__main__':
     unittest.main()
