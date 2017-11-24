@@ -1,6 +1,19 @@
 from Blog import db
 from .user import User
 
+class BasePost():
+    @property
+    def title(self):
+        pass
+    @property
+    def first_writer(self):
+        pass
+    @property
+    def other_writers(self):
+        pass
+    @property
+    def first_paragraph(self):
+        pass
 class Post_User(db.Model):
     #id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), primary_key=True)

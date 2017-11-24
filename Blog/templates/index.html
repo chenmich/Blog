@@ -1,0 +1,35 @@
+{% extends 'base_for_blog.html' %}
+
+{% block left_content %}
+    <ul class="list-group">
+       {% for post in posts %}
+            <li class="list-group-item">                
+                    
+                <div class='row '>
+                    作者：<a href=''>{{post.first_writer}}</a>
+                </div>
+                <div class="row">                        
+                        <a href=''><h2>{{post.title}}<h2></a>                        
+                </div>
+                <div class="row">
+                    {{post.first_paragraph}}
+                </div>
+                
+                <div class='row'>
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        其它作者
+                        </a>                              
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {%for writer in post.other_writers%}
+                            <a class="dropdown-item" href="#">{{writer}}</a>
+                            {% endfor%}                                  
+                        </div>
+                    </div>
+                </div>
+                    
+                
+            </li>
+        {% endfor%}
+    </ul>
+{% endblock left_content %}
