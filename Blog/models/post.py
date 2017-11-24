@@ -2,9 +2,9 @@ from Blog import db
 from .user import User
 
 class Post_User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    #id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     is_first_author = db.Column(db.Boolean(), default=False)
     writer = db.relationship("User", back_populates='posts')
     post = db.relationship("Post", back_populates='writers')

@@ -126,10 +126,15 @@ class test_user_post_relationship(unittest.TestCase):
         print()
         post_titles = ['first', 'second', 'third', 'fouth', 'fifth']
         posts = [Post(title=title) for title in post_titles]
+
+        #如果先把posts加入，就可能会引发nullable=False错，所在，post不要先加入
+        #db.session.add_all(posts)
+        #db.session.commit()
         micheal = User.query.filter_by(username='micheal').first()
         kfl = User.query.filter_by(username='kfl').first()
         
         #micheal have three posts, and is the first author of first post
+        #请注意这时posts并没有被add到数据库，更没有commit
         m_first = Post_User(is_first_author=True)
         m_first.writer = micheal
         posts[0].writers.append(m_first)
