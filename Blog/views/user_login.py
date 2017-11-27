@@ -23,7 +23,7 @@ def user_login():
             return redirect('/')
         else:
             flash("用户名称/密码不正确")
-                  
+
     return render_template('user_login.html', form=form)
         
 
