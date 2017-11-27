@@ -5,7 +5,7 @@ from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 
 from Blog import app, db
-from Blog.models.user import Role, User, role_name
+from ..models import User, Role, role_name
 
 
 class userRegisterForm(FlaskForm):

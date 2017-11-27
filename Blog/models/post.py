@@ -1,0 +1,37 @@
+from Blog import db
+from .user import User
+
+class BasePost():
+    @property
+    def title(self):
+        pass
+    @property
+    def first_writer(self):
+        pass
+    @property
+    def other_writers(self):
+        pass
+    @property
+    def first_paragraph(self):
+        pass
+class Post_User(db.Model):
+    #id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    is_first_author = db.Column(db.Boolean(), default=False)
+    writer = db.relationship("User", back_populates='posts')
+    post = db.relationship("Post", back_populates='writers')
+
+    def __repr__(self):
+        return '< Post_User {0},{1}>'.format(self.writer.username, self.post.title)
+    
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(256), nullable=False)
+    writers = db.relationship('Post_User', back_populates='post')
+
+    def __repr__(self):
+        return '<Post  %r>'%self.title
+
+

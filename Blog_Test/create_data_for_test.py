@@ -1,29 +1,12 @@
 import os
 import sys
 sys.path.append('.')
-
 import unittest
-
-
-from config import basedir
 from Blog import db, app
-from Blog.models.post.post import Post
-from Blog.models.user.user import User
-from Blog.models.user.role import Role, role_name, Permission, permission_name
+from Blog.models import Role, role_name, Permission, permission_name, User, Post, Post_User
 
 
-class test_user_post_relationship(unittest.TestCase):
-    def setUp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'test.dat')
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.testing = True        
-        self.app = app.test_client()
-        db.create_all()
-        self._create_base_row()
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-    def _create_base_row(self):        
+def create_base_row(db):    
         #roles
         admin_role = Role(rolename=role_name.admin)
         anonymous_role = Role(rolename=role_name.anonymous)
@@ -112,24 +95,4 @@ class test_user_post_relationship(unittest.TestCase):
         
         db.session.add_all([micheal, lrq, zyq, 
                             kfl, zl, ny, lzj])
-
         db.session.commit()
-    
-    def test_role_user_relationship(self):
-        admin_role = Role.query.filter_by(rolename=role_name.admin).first()
-        self.assertEqual(len(admin_role.users), 4)
-        micheal = User.query.filter_by(username='micheal').first()
-        self.assertEqual(micheal.role.rolename, role_name.admin)
-
-    def test_role_permission_relationship(self):
-        common_role = Role.query.filter_by(rolename=role_name.common).first()
-        self.assertEqual(len(common_role.permissions), 3)
-        self.assertIsInstance(common_role.permissions[0], Permission)
-        
-
-        
-        
-    
-        
-if __name__ == '__main__':
-    unittest.main()
