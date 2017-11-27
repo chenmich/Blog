@@ -6,5 +6,8 @@ from .utility import get_posts
 
 @app.route('/')
 def index():
+    #for production
+    #posts = Post.query.all()
+    #for development
     posts = get_posts()
     return render_template('index.html', posts=posts)
