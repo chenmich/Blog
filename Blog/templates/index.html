@@ -14,18 +14,15 @@
                 <div class="row">
                     {{post.first_paragraph}}
                 </div>
-                
                 <div class='row'>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        其它作者
-                        </a>                              
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            {%for writer in post.other_writers%}
-                            <a class="dropdown-item" href="#">{{writer}}</a>
-                            {% endfor%}                                  
+                        <div class="dropdown justify-content-right">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">其它作者 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    {%for writer in post.other_writers%}
+                                        <li><a href="{{url_for('index', username=writer)}}">{{writer}}</a></li>
+                                    {%endfor%}
+                                </ul>
                         </div>
-                    </div>
                 </div>
                     
                 

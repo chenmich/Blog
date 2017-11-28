@@ -13,14 +13,22 @@
             <a class="nav-link navbar-brand text-white bg-dark" href="{{url_for('index')}}">主页</a>
         </div>
         <div class="nav navbar-nav navbar-right">
-            <ul class="nav navbar-nav">
-                <li><a href= "{{url_for('user_register')}}">用户注册</a></li>
-                <li><a href= "{{url_for('user_login')}}">用户登录</a></li>
-                {% if current_user.is_authenticated %}   
-                    <li><a href='{{url_for('user_logout')}}'>用户退出</a></li>
-                    <li><a> {{current_user.username}}</a></li>   
-                {% endif %}              
-            </ul>
+            <div class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    {%if current_user.is_authenticated%}
+                        {{current_user.username}}
+                    {%else%}
+                        用户注册
+                    {%endif%} 
+                <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{url_for('user_register')}}">用户注册</a></li>
+                    <li><a href="{{url_for('user_login')}}">用户登录</a></li>
+                    {%if current_user.is_authenticated%}
+                        <li><a href="{{url_for('user_logout')}}">用户退出</a></li>
+                    {%endif%}
+                </ul>
+            </div>
         </div>        
     </div>
 </div>
@@ -47,3 +55,6 @@
         </div>
     </div>
 {% endblock %}
+
+
+
