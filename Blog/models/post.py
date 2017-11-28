@@ -13,8 +13,10 @@ class BasePost():
         raise NotImplementedError("The first_writer property is not impletemented!")
     @property
     def first_paragraph(self):
-        raise NotImplementedError("The firstparagraph property is not impletemented!")
-
+        raise NotImplementedError("The firs_tparagraph property is not impletemented!")
+    @property
+    def post_content(self):
+        raise NotImplementedError("The post_content property is not impletemented!")
 class Post_User(db.Model):
     #id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), primary_key=True)
