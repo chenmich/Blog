@@ -29,12 +29,9 @@ class Post_User(db.Model):
 
 class Post(db.Model, BasePost):
     id = db.Column(db.Integer, primary_key=True)
-    _title = db.Column("title", db.String(256), nullable=False)
     writers = db.relationship('Post_User', back_populates='post')
-
-    @property
-    def title(self):
-        return self.title
+    #i can think that the property tilte is defined 
+    title = db.Column(db.String(256), nullable=False)
     @property
     def first_writer(self):
         for writer in self.writers:
