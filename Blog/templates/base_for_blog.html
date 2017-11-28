@@ -1,7 +1,7 @@
 {% extends "bootstrap/base.html" %} 
 {% block title %}混凝土工程博客{% endblock %} 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-light" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">主页</a>
+            <a class="nav-link navbar-brand text-white bg-dark" href="{{url_for('index')}}">主页</a>
         </div>
         <div class="nav navbar-nav navbar-right">
             <ul class="nav navbar-nav">
