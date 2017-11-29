@@ -9,7 +9,4 @@ from .utility import get_posts, get_fake_post
 def post_show(post_title):
     #for development
     post = get_fake_post(post_title)
-    print("========================================================================")
-    print(post.post_content)
-    print("========================================================================")
     return render_template('post_show.html', post=post)

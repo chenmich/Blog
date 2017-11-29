@@ -8,16 +8,22 @@
 </div>
 <div class="col-2 text-truncate flex-wrap" style='height:100;overflow-y: scroll'>
     {{post.post_content}}
-</div>
-<hr>
-<div class='row'>
-    <div class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">其它作者 <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                {%for writer in post.other_writers%}
-                    <li><a href="{{url_for('index', username=writer)}}">{{writer}}</a></li>
-                {%endfor%}
-            </ul>
+</div><hr>
+
+<nav class="nav justify-content-center|justify-content-end">
+    {%if current_user.username==post.first_writer %}
+    <a href="{{url_for('post_editor', post_title=post.title)}}" 
+        class="badge badge-primary">编辑</a>
+    {%endif%}
+    <div class="nav navbar-nav navbar-right">
+        <div class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">其它作者 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {%for writer in post.other_writers%}
+                        <li><a href="{{url_for('index', username=writer)}}">{{writer}}</a></li>
+                    {%endfor%}
+                </ul>
+        </div>
     </div>
-</div>
+</nav>
 {%endblock left_content%}
