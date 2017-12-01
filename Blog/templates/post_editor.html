@@ -1,100 +1,24 @@
-{% extends "bootstrap/base.html" %}
-{% import  "bootstrap/wtf.html" as wtf %}
-{% block head %}
-    {{super()}}   
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [['$','$'], ['\\(','\\)']],
-                processEscapes: true
-            }
-        });
-    </script>        
-{% endblock head %}
-{% block metas %}
-    {{super()}}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-{% endblock metas %}
+{%extends 'base_for_blog.html'%}
 
-{% block styles %}
-    <link rel="stylesheet" 
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
-        crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" 
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
-        crossorigin="anonymous">
-{% endblock styles %}
 
-{% block content %}
-<div class='container-fluid'>
-    <div class='col'>
-        <div class="form-group ">
-            <form>
-                <input name="title" type="text" placeholder="Title?" />
-                <textarea name="content" data-provide="markdown"  rows="10"></textarea>
-                <label class="checkbox">
-                <input name="publish" type="checkbox"> Publish
-                </label>
-                <hr/>
-                <button type="submit" class="btn">Submit</button>
-            </form> 
+{%block left_content%}
+<form method="POST">
+        <div class="form-group">
+          <label for="Title">标题</label>
+          <input type="Title" class="form-control" id="Title" aria-describedby="TitleHelp" placeholder="输入标题">
         </div>
-    </div>
-</div>
 
-{% endblock content %}
-{% block scripts %}
-    <script 
-        src="/static/js/jquery-3.2.1.min.js">
-    </script>
-    <script 
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
-        crossorigin="anonymous"></script>
-    <script 
-        src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" 
-        type="text/javascript"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/js/bootstrap-markdown.js">
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.min.js"></script>
-    <script src="/static/js/markdown.js"></script>
-    <script src="/static/js/to-markdown.js"></script>
-    <script src="/static/js/main.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){            
-            $("div.md-controls").remove()            
-            $("div.md-fullscreen-controls").remove()
-            
-        })
-        $("#some-textarea").markdown(
-            {
-                autofocus: false,
-                savable: false,
-                resize: "both",
-                footer: "",
-                fullscreen:"",
-                
-            })
-        $("#target-editor-twitter").markdown({
-            onShow:function(e){
-                e.hideButtons("cmdPreview")
-            },
-            onChange: function(e){
-                parsed_markdown = e.parseContent()
-                div_preview=document.getElementById("preview")
-                div_preview.innerHTML = parsed_markdown
-                MathJax.Hub.Typeset();
-            }            
-        })            
+        <div class="form-group">
+            <label for=""></label>
+            <textarea class="form-control" name="" id="" rows="10"></textarea>
+        </div>
         
-    </script>
-   
-  
-{% endblock scripts %}
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            发布
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+{%endblock left_content%}
