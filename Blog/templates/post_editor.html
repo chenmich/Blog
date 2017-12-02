@@ -1,7 +1,6 @@
-{% extends "bootstrap/base.html" %}
-{% import  "bootstrap/wtf.html" as wtf %}
+{% extends "base_for_blog.html" %}
 {% block head %}
-    {{super()}}   
+    {{super()}}    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
         MathJax.Hub.Config({
             tex2jax: {
@@ -9,7 +8,8 @@
                 processEscapes: true
             }
         });
-    </script>        
+    </script>
+          
 {% endblock head %}
 {% block metas %}
     {{super()}}
@@ -30,24 +30,27 @@
         crossorigin="anonymous">
 {% endblock styles %}
 
-{% block content %}
-<div class='container-fluid'>
-    <div class='col'>
-        <div class="form-group ">
-            <form>
-                <input name="title" type="text" placeholder="Title?" />
-                <textarea name="content" data-provide="markdown"  rows="10"></textarea>
-                <label class="checkbox">
-                <input name="publish" type="checkbox"> Publish
-                </label>
-                <hr/>
-                <button type="submit" class="btn">Submit</button>
-            </form> 
-        </div>
+{% block left_content %}
+<form method='post'>
+    <div class="form-group">
+        <label for="title">标题</label>
+        <input type="text" class="form-control" id="title" placeholder="文章标题">
+      <small id="helpId" class="form-text text-muted">文章标题不可以是空白</small>
     </div>
-</div>
+    <div class="form-group">
+      <textarea class="form-control" data-provide="markdown"
+         name="article" id="post_editor" rows="20"></textarea>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="publish" id="publish" value="checkedValue">
+        可以发布
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">提交</button>
+</form>
 
-{% endblock content %}
+{% endblock left_content %}
 {% block scripts %}
     <script 
         src="/static/js/jquery-3.2.1.min.js">
@@ -73,27 +76,39 @@
             $("div.md-fullscreen-controls").remove()
             
         })
-        $("#some-textarea").markdown(
+        $("#post_editor").markdown(
             {
                 autofocus: false,
                 savable: false,
-                resize: "both",
-                footer: "",
-                fullscreen:"",
-                
-            })
-        $("#target-editor-twitter").markdown({
-            onShow:function(e){
-                e.hideButtons("cmdPreview")
-            },
-            onChange: function(e){
-                parsed_markdown = e.parseContent()
-                div_preview=document.getElementById("preview")
-                div_preview.innerHTML = parsed_markdown
-                MathJax.Hub.Typeset();
-            }            
-        })            
-        
+                resize: "vertical"            
+            }) 
+        (function ($) {
+            $.fn.markdown.messages['zh'] = {
+            'Bold': "粗体",
+            'Italic': "斜体",
+            'Heading': "标题",
+            'URL/Link': "链接",
+            'Image': "图片",
+            'List': "列表",
+            'Unordered List': "无序列表",
+            'Ordered List': "有序列表",
+            'Code': "代码",
+            'Quote': "引用",
+            'Preview': "预览",
+            'strong text': "粗体",
+            'emphasized text': "强调",
+            'heading text': "标题",
+            'enter link description here': "输入链接说明",
+            'Insert Hyperlink': "URL地址",
+            'enter image description here': "输入图片说明",
+            'Insert Image Hyperlink': "图片URL地址",
+            'enter image title here': "在这里输入图片标题",
+            'list text here': "这里是列表文本",
+            'code text here': "这里输入代码",
+            'quote here': "这里输入引用文本"
+            };
+        }(jQuery));
+        $("#post_editor").markdown({language:'zh'})
     </script>
    
   
