@@ -13,8 +13,9 @@
 
 {%block content%}
 <div class='container-fluid'>
-    <div id="editormd">
-        <textarea style="display:none;">### Hello Editor.md !</textarea>
+    <div id="post">
+        {{form.post_markdown_doc(style='display:none')}}
+        {{form.post_html_code(style='display:none')}}
     </div>
 </div>
 {%endblock content%}
@@ -24,7 +25,7 @@
     <script type='text/javascript' src="/static/editor.md/editormd.js"></script>
     <script type="text/javascript">
             var editor = editormd({
-                id   : "editormd",
+                id   : "post",
                 path : "/static/editor.md/lib/",
                 width: 90%$,
                 height: 640,
