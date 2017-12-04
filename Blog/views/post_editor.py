@@ -8,14 +8,13 @@ from ..models import Post
 
 class PostEditor(FlaskForm):
     title = StringField('文章标题', validators=[DataRequired()])
-    post_markdown_doc = TextAreaField()
-    post_html_code = TextAreaField()
+    post_doc = TextAreaField(_name='post-markdown-doc')
+    post_html = TextAreaField(_name='post-html-code')
     publish = BooleanField('请求发布')
     save = SubmitField('存储文章')
 
 @app.route('/editor/<post_title>')
 def post_editor(post_title):
     form = PostEditor()
-    if form.validate_on_submit():
-        print(form.post_html_code.data)
+    
     return render_template('post_editor.html', form=form)
