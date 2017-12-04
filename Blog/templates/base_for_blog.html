@@ -1,7 +1,7 @@
 {% extends "bootstrap/base.html" %} 
 {% block title %}混凝土工程博客{% endblock %} 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-light" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -10,17 +10,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">主页</a>
+            <a class="nav-link navbar-brand text-white bg-dark" href="{{url_for('index')}}">主页</a>
         </div>
         <div class="nav navbar-nav navbar-right">
-            <ul class="nav navbar-nav">
-                <li><a href= "{{url_for('user_register')}}">用户注册</a></li>
-                <li><a href= "{{url_for('user_login')}}">用户登录</a></li>
-                {% if current_user.is_authenticated %}   
-                    <li><a href='{{url_for('user_logout')}}'>用户退出</a></li>
-                    <li><a> {{current_user.username}}</a></li>   
-                {% endif %}              
-            </ul>
+            <div class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    {%if current_user.is_authenticated%}
+                        {{current_user.username}}
+                    {%else%}
+                        用户注册
+                    {%endif%} 
+                <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{url_for('user_register')}}">用户注册</a></li>
+                    <li><a href="{{url_for('user_login')}}">用户登录</a></li>
+                    {%if current_user.is_authenticated%}
+                        <li><a href="{{url_for('user_logout')}}">用户退出</a></li>
+                    {%endif%}
+                </ul>
+            </div>
         </div>        
     </div>
 </div>
@@ -28,10 +36,10 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row" >
-            <div class="col-sm-8" style="background-color:lavenderblush;">
+            <div class="col-sm-10" style="background-color:lavenderblush;">
                {% block left_content %}博文列表栏{% endblock %}
             </div>
-            <div class="col-sm-4" style="background-color:lavender;">
+            <div class="col-sm-2" style="background-color:lavender;">
                 {% block right_content %}
                     博文分类栏
                 {% endblock %}
@@ -47,3 +55,6 @@
         </div>
     </div>
 {% endblock %}
+
+
+
