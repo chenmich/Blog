@@ -16,5 +16,5 @@ class PostEditor(FlaskForm):
 @app.route('/editor/<post_title>')
 def post_editor(post_title):
     form = PostEditor()
-    
+    print(form.post_doc.data)
     return render_template('post_editor.html', form=form)
