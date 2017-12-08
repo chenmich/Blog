@@ -7,5 +7,5 @@ from ..models import Post
 
 @app.route('/editor/<post_title>')
 def post_editor(post_title):
-    print(request.args.get('a'))
+    print(request.args.get('markdownDoc'))
     return render_template('post_editor.html', post_title=post_title)

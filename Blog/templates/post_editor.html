@@ -89,7 +89,7 @@
         $(function() {
             $('input#save-document').bind('click', function() {
               $.get($POST_URL, {
-                a: editor.getMarkdown()
+                markdownDoc: editor.getMarkdown()
               });
               return false;
             });
