@@ -18,6 +18,7 @@ def add_numbers(post):
     a = request.args.get('a', 0, type=int)
     b = request.args.get('b', 0, type=int)
     print(post)
+    print(request.args)
     return jsonify(result=a + b + post)
 
 

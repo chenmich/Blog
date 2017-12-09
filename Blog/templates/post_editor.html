@@ -8,8 +8,9 @@
     {{super()}}
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-        $POST_URL = $SCRIPT_ROOT  + '/{{post_title}}'
+        $POST_URL = $SCRIPT_ROOT  + '/editor' + '/{{post_title}}'
     </script>
+    
 {%endblock head%}
 {%block metas%}
     {{super()}}
@@ -18,14 +19,14 @@
 
 {%block content%}
 <div class='container-fluid'>
-    <div class='col-sm-11'>            
-           
+    <div class='col-sm-11'>
             <div id="post">
-                <textarea class="editormd-markdown-textarea" name="post-markdown-doc"></textarea>                
+                <textarea form='editor' class="editormd-markdown-textarea" name="post-markdown-doc"></textarea>                
             </div>
-            <a class='btn btn-primary' value='存储' id='save-document'/>      
+            <input class='btn btn-primary' type='button' value='存储' id='save-document'/>
+            <input class='btn btn-primary' type='submit' form=editor/>    
     <div class='col-sm-1'>
-
+        <form id='editor'></form>
     </div>
 
 </div>
@@ -34,6 +35,16 @@
 
 {%block scripts%}
     {{super()}}
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";    
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+    </script>
     <script type='text/javascript' src="/static/editor.md/editormd.js"></script>
     <script type="text/javascript">
             var editor = editormd({
@@ -87,14 +98,23 @@
     </script>
     <script type='text/javascript'>
         $(function() {
-            $('a#save-document').bind('click', function() {
-              $.get($POST_URL, {
-                markdownDoc: editor.getMarkdown()
-              });
-              return false;
+            $('input#save-document').bind('click', function() {
+                $.ajax({
+                    url: $POST_URL,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        markdownDoc: editor.getMarkdown() }, null, '\t'),
+                    success: function(data){
+                                    console.log(data)
+                             },
+                    error: function(error){
+                                    console.log(data)
+                            },
+                    datatype: 'json',
+                    contentType: 'application/json'
+                })
             });
+            return
           });
     </script>
-    
-
 {%endblock scripts%}
