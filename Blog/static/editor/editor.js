@@ -1,10 +1,12 @@
 is_doc_changed = false
 is_doc_posted = false
 webstorage_enabled = false
+post_interval = 10*60*1000
 if (typeof(Storage) !== "undefined") {
     webstorage_enabled = true    
     $('div#webstorage-message').css('display','none')       
-}
+}else
+    post_interval = 5*60*1000
 
 //create editor instance
 var editor = editormd({
@@ -59,23 +61,25 @@ var editor = editormd({
     }
 });
 //post doc
-$(function() {
-    $('input#save-document').bind('click', function() {
-        $.ajax({
-            url: $POST_URL,
-            type: 'POST',
-            data: JSON.stringify({
-                markdownDoc: editor.getMarkdown() }, null, '\t'),
-            success: function(data){
-                            console.log(data)
-                     },
-            error: function(jqXhr, textStatus, errorThrown){
-                            console.log(textStatus)
+function post_doc(){
+    $.ajax({
+        url: $POST_URL,
+        type: 'POST',
+        data: JSON.stringify({
+            markdownDoc: editor.getMarkdown() }, null, '\t'),
+        success: function(data){
+                        console.log(data)
                     },
-            datatype: 'json',
-            contentType: 'application/json'
-        })
-    });
-    return
-  });
+        error: function(jqXhr, textStatus, errorThrown){
+                        console.log(textStatus)
+                },
+        datatype: 'json',
+        contentType: 'application/json'
+    
+    })
+}
 
+
+$(function(){
+    setInterval(post_doc, post_interval)
+})
