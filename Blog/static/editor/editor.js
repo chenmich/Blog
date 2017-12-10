@@ -1,8 +1,17 @@
+is_doc_changed = false
+is_doc_posted = false
+webstorage_enabled = false
+if (typeof(Storage) !== "undefined") {
+    webstorage_enabled = true    
+    $('div#webstorage-message').css('display','none')       
+}
+
+//create editor instance
 var editor = editormd({
     id   : "post",
     path : "/static/editor.md/lib/",
     width: 100%$,
-    height: 480,
+    height: 100%$,
     theme : "dark",
     
     toolbarIcons : function() {
@@ -36,7 +45,7 @@ var editor = editormd({
     imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
     imageUploadURL : "./php/upload.php",
     onload : function() {
-        console.log('onload', this);
+        //console.log('onload', this);
         //this.fullscreen();
         //this.unwatch();
         //this.watch().fullscreen();
@@ -44,9 +53,12 @@ var editor = editormd({
         //this.width("100%");
         //this.height(480);
         //this.resize("100%", 640);
+    },
+    onchange: function(){
+        is_doc_changed = true
     }
 });
-
+//post doc
 $(function() {
     $('input#save-document').bind('click', function() {
         $.ajax({
@@ -57,8 +69,8 @@ $(function() {
             success: function(data){
                             console.log(data)
                      },
-            error: function(error){
-                            console.log(data)
+            error: function(jqXhr, textStatus, errorThrown){
+                            console.log(textStatus)
                     },
             datatype: 'json',
             contentType: 'application/json'
@@ -66,3 +78,4 @@ $(function() {
     });
     return
   });
+
