@@ -1,4 +1,6 @@
 webstorage_enabled = false
+var is_doc_posted = false 
+var markdown_doc = ''
 post_interval = 10*60*1000
 if (typeof(Storage) !== "undefined") {
     webstorage_enabled = true    
@@ -45,18 +47,19 @@ var editor = editormd({
     imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
     imageUploadURL : "./php/upload.php",
     onload : function() {
-        //console.log('onload', this);
-        //this.fullscreen();
-        //this.unwatch();
-        //this.watch().fullscreen();
-        //this.setMarkdown("#PHP");
-        //this.width("100%");
-        //this.height(480);
-        //this.resize("100%", 640);
+        if(webstorage_enabled && localStorage.markdownDoc && 
+            localStorage.is_doc_posted === 'false' && localStorage.markdownDoc !== '')
+            if (confirm('你上次编辑的文档还没有上传，要恢复吗？')){
+                $('textarea#doc').text = editor.getMarkdown()
+            }
     },
     onchange: function(){
-        if (webstorage_enabled) post_doc()
-        else save_doc()
+        if(webstorage_enabled)
+            save_doc()
+        else{
+            post_doc()
+            localStorage.is_doc_posted = true
+        }
     }
 });
 //post doc
@@ -75,15 +78,20 @@ function post_doc(){
         datatype: 'json',
         contentType: 'application/json'
     
-    })
+    });
 }
 function save_doc(){
-    localStorage.markdownDoc = editor.getMarkdown()
+    if(webstorage_enabled){
+        localStorage.markdownDoc = editor.getMarkdown()
+        localStorage.is_doc_posted = false
+    }
 }
 
-window.onunload= function(){
-    
-}
+
 $(function(){    
     setInterval(post_doc, post_interval)
+    window.onbeforeunload = function(e){
+        if(webstorage_enabled && localStorage.is_doc_posted === 'false')
+            post_doc()
+    }
 })
