@@ -1,5 +1,3 @@
-is_doc_changed = false
-is_doc_posted = false
 webstorage_enabled = false
 post_interval = 10*60*1000
 if (typeof(Storage) !== "undefined") {
@@ -57,7 +55,8 @@ var editor = editormd({
         //this.resize("100%", 640);
     },
     onchange: function(){
-        is_doc_changed = true
+        if (webstorage_enabled) post_doc()
+        else save_doc()
     }
 });
 //post doc
@@ -78,8 +77,13 @@ function post_doc(){
     
     })
 }
+function save_doc(){
+    localStorage.markdownDoc = editor.getMarkdown()
+}
 
-
-$(function(){
+window.onunload= function(){
+    
+}
+$(function(){    
     setInterval(post_doc, post_interval)
 })
