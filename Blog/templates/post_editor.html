@@ -1,5 +1,4 @@
 {%extends 'base_for_blog.html'%}
-
 {%block styles%}
     {{super()}}
     <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css" />
@@ -16,7 +15,6 @@
     {{super()}}
     <meta charset="utf-8" />    
 {%endblock metas%}
-
 {%block content%}
 <div class='container-fluid'>
     <div id='webstorage-message'>
@@ -28,12 +26,9 @@
     <div class='col-sm-12'>
             <div id="post" style="width:100%">
                 <textarea class="editormd-markdown-textarea" name="post-markdown-doc" id='doc'></textarea>                
-            </div>    
-
+            </div>
 </div>
-
 {%endblock content%}
-
 {%block scripts%}
     {{super()}}
     <script type="text/javascript">
