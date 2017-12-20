@@ -1,6 +1,6 @@
 webstorage_enabled = false
 var is_doc_posted = false 
-var post_interval = 12000 //10*60*1000
+var post_interval = 10*60*1000
 
 var editor;
 //create editor instance
@@ -44,7 +44,28 @@ $(function(){
         toolbarIcons : function() {
             // Or return editormd.toolbarModes[name]; // full, simple, mini
             // Using "||" set icons align right.
-            return editormd.toolbarModes['simple']
+            //return editormd.toolbarModes['simple']
+            return [
+                "undo", "redo", "|", 
+                "bold", "del", "italic", "quote", "uppercase", "lowercase", "|", 
+                "h1", "h2", "h3", "h4", "h5", "h6", "|", 
+                "list-ul", "list-ol", "hr", "|",
+                "watch", "preview", "fullscreen", "|",
+                "help", '|', 'save', 'submit']
+        },
+        toolbarIconsClass : {
+            save : "fa fa-save",  // 指定一个FontAawsome的图标类
+            submit: 'fa fa-cloud-upload'
+        },
+        toolbarIconTexts : {
+            save  : "客户端存储", // 如果没有图标，则可以这样直接插入内容，可以是字符串或HTML标签
+            submit: '提交到服务器'
+        },
+        lang:{
+            toolbar:{
+                save: '客户端存储',
+                submit : '上传到云端'
+            }
         },
         // toolbarIcons : "full", // You can also use editormd.toolbarModes[name] default list, values: full, simple, mini.
         //previewTheme : "dark",
@@ -71,6 +92,17 @@ $(function(){
         imageUpload : true,
         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL : "./php/upload.php",
+
+        toolbarHandlers : {
+            save: function(cm, icon, cursor, selection){
+                save_doc()
+                localStorage.is_doc_posted = false
+            },
+            submit: function(cm, icon, cursor, selection){
+                post_doc()
+            }
+        },
+
         onload : function() {
             if(webstorage_enabled && localStorage.markdownDoc && 
                 localStorage.is_doc_posted === 'false' && localStorage.markdownDoc !== '')
