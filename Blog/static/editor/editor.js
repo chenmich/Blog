@@ -34,12 +34,15 @@ $(function(){
         $('div#webstorage-message').css('display','none')       
     }else
         post_interval = 5*60*1000
-    editor = editormd({
-        id   : "post",
+
+    editor = editormd('post',{
+        //id   : "post",
         path : "/static/editor.md/lib/",
         width: 100%$,
         height: 100%$,
-        theme : "dark",
+        theme : "default",
+        previewTheme : "default",
+        editorTheme : editormd.editorThemes['monokai'],
         
         toolbarIcons : function() {
             // Or return editormd.toolbarModes[name]; // full, simple, mini
@@ -68,8 +71,7 @@ $(function(){
             }
         },
         // toolbarIcons : "full", // You can also use editormd.toolbarModes[name] default list, values: full, simple, mini.
-        //previewTheme : "dark",
-        //editorTheme : "pastel-on-dark",
+        
         codeFold : true,
         syncScrolling : true,
         saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
@@ -121,8 +123,11 @@ $(function(){
         }
     });
 
+    //editor.setEditorTheme('monokai')
+
     setInterval(post_doc, post_interval)
 })
+
 
 window.onbeforeunload = function(e){
     if(webstorage_enabled && localStorage.is_doc_posted === 'false')
