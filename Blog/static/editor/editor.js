@@ -29,9 +29,9 @@ function save_doc(){
 
 
 $(function(){
-    if (typeof(Storage) !== "undefined") {
+    if (typeof(Storage) === "undefined") {
         webstorage_enabled = true    
-        $('div#webstorage-message').css('display','none')       
+        $('#webstorage-message').modal('show')     
     }else
         post_interval = 5*60*1000
 

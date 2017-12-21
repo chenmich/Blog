@@ -29,8 +29,6 @@
               <select class="form-control" name="themes" id="themes">
               </select>
             </div>
-                
-            
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -38,13 +36,37 @@
       </div>
     </div>
   </div>
-<div class='container-fluid'>
-    <div id='webstorage-message'>
-        <P>你的web浏览器不支持web存储！我们每5分钟会把你的文档上传到服务器</p>
-        <p>但可能会因为网络故障等等不可预期的原因导致文档不能及时上传，如果浏览器关闭或故障，会导致你的文档内容损失！<p>
-        <p>建议你使用能支持web存储的浏览器</p>
-        <p>这个<a href='http://dev-test.nemikor.com/web-storage/support-test/' target="_blank">网页</a>可以测试你的浏览器支持存储的能力</p>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="webstorage-message" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                <h4 class="modal-title" id="modelTitleId">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div id='webstorage-message'>
+                <P>你的web浏览器不支持web存储！我们每5分钟而不是默认的10分钟就会自动为您的将文档上传到服务器</p>
+                <P>在工具条中也有上传工具，请您在编辑时随时上传文档
+                <p>但可能会因为网络故障等等不可预期的原因导致文档不能及时上传，如果浏览器关闭或故障，会导致你的文档内容损失！<p>
+                <p>建议你使用能支持web存储的浏览器</p>
+                <p>这个<a href='http://dev-test.nemikor.com/web-storage/support-test/' target="_blank">网页</a>可以测试你的浏览器支持存储的能力</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
+</div>
+  <div class='container-fluid'>
+    
     <div class='col-sm-12'>
             <div id="post" style="width:100%">
                 <textarea class="editormd-markdown-textarea" name="post-markdown-doc" id='doc'></textarea>                
