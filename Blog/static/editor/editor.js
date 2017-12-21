@@ -30,10 +30,11 @@ function save_doc(){
 
 $(function(){
     if (typeof(Storage) === "undefined") {
-        webstorage_enabled = true    
-        $('#webstorage-message').modal('show')     
-    }else
         post_interval = 5*60*1000
+        $('#webstorage-message').modal('show')
+    }else{
+        webstorage_enabled = true
+    }
 
     editor = editormd('post',{
         //id   : "post",
