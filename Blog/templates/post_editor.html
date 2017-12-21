@@ -1,471 +1,90 @@
 {%extends 'base_for_blog.html'%}
-
 {%block styles%}
     {{super()}}
     <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css" />
 {%endblock styles%}
-
+{%block head%}
+    {{super()}}
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $POST_URL = $SCRIPT_ROOT  + '/editor' + '/{{post_title}}'
+    </script>
+    
+{%endblock head%}
 {%block metas%}
     {{super()}}
     <meta charset="utf-8" />    
 {%endblock metas%}
-
 {%block content%}
-<div class='container-fluid'>
-    <div class='col-sm-11'>            
-        <form>    
-            <div id="post">
-                <textarea class="editormd-markdown-textarea" name="post-markdown-doc">
-#### Get value
-
-每个 Editor.md 的 ID 元素下都有一个保存 Markdown 源码的 Textarea，你也可以通过设置开启另一个保存 HTML 源码的 Textarea，可以按需要获取相应的值，如下：
-
-
-
-#### Example
-
-```javascript
-var testEditor = editormd("test-editormd", {
-    width  : "90%",
-    height : 640,
-    path   : "../lib/",
-    saveHTMLToTextarea : true
-});
-
-testEditor.getMarkdown();       // 获取 Markdown 源码
-testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
-testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
-```
-
-#### Backend get form value
-
-假设编辑器 ID 为 `test-editormd`，以 PHP 为例：
-
-```php
-<?php
-    header("Content-Type:text/html; charset=utf-8");
-
-    if (isset($_POST['submit'])) {
-        echo "<pre>";
-        echo htmlspecialchars($_POST["test-editormd-markdown-doc"]);
-        echo "<br/><br/>";
-        echo htmlspecialchars($_POST["test-editormd-html-code"]);
-        echo "</pre>";
-    }
-?>
-```
-
-# Editor.md
-
-![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
-
-![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
-
-**目录 (Table of Contents)**
-
-[TOCM]
-
-[TOC]
-
-# Heading 1
-## Heading 2               
-### Heading 3
-#### Heading 4
-##### Heading 5
-###### Heading 6
-# Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-## Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-### Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-#### Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
-##### Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-###### Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-
-#### 标题（用底线的形式）Heading (underline)
-
-This is an H1
-=============
-
-This is an H2
--------------
-
-### 字符效果和横线等
-                
-----
-
-~~删除线~~ <s>删除线（开启识别HTML标签时）</s>
-*斜体字*      _斜体字_
-**粗体**  __粗体__
-***粗斜体*** ___粗斜体___
-
-上标：X<sub>2</sub>，下标：O<sup>2</sup>
-
-**缩写(同HTML的abbr标签)**
-
-> 即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启
-
-The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
-
-### 引用 Blockquotes
-
-> 引用文本 Blockquotes
-
-引用的行内混合 Blockquotes
-                    
-> 引用：如果想要插入空白换行`即<br />标签`，在插入处先键入两个以上的空格然后回车即可，[普通链接](http://localhost/)。
-
-### 锚点与链接 Links
-
-[普通链接](http://localhost/)
-
-[普通链接带标题](http://localhost/ "普通链接带标题")
-
-直接链接：<https://github.com>
-
-[锚点链接][anchor-id] 
-
-[anchor-id]: http://www.this-anchor-link.com/
-
-[mailto:test.test@gmail.com](mailto:test.test@gmail.com)
-
-GFM a-tail link @pandao  邮箱地址自动链接 test.test@gmail.com  www@vip.qq.com
-
-> @pandao
-
-### 多语言代码高亮 Codes
-
-#### 行内代码 Inline code
-
-执行命令：`npm install marked`
-
-#### 缩进风格
-
-即缩进四个空格，也做为实现类似 `<pre>` 预格式化文本 ( Preformatted Text ) 的功能。
-
-    <?php
-        echo "Hello world!";
-    ?>
-    
-预格式化文本：
-
-    | First Header  | Second Header |
-    | ------------- | ------------- |
-    | Content Cell  | Content Cell  |
-    | Content Cell  | Content Cell  |
-
-#### JS代码　
-
-```javascript
-function test() {
-    console.log("Hello world!");
-}
-    
-(function(){
-    var box = function() {
-        return box.fn.init();
-    };
-
-    box.prototype = box.fn = {
-        init : function(){
-            console.log('box.init()');
-
-            return this;
-        },
-
-        add : function(str) {
-            alert("add", str);
-
-            return this;
-        },
-
-        remove : function(str) {
-            alert("remove", str);
-
-            return this;
-        }
-    };
-    
-    box.fn.init.prototype = box.fn;
-    
-    window.box =box;
-})();
-
-var testBox = box();
-testBox.add("jQuery").remove("jQuery");
-```
-
-#### HTML 代码 HTML codes
-
-
-
-### 图片 Images
-
-Image:
-
-![](https://pandao.github.io/editor.md/examples/images/4.jpg)
-
-> Follow your heart.
-
-![](https://pandao.github.io/editor.md/examples/images/8.jpg)
-
-> 图为：厦门白城沙滩
-
-图片加链接 (Image + Link)：
-
-[![](https://pandao.github.io/editor.md/examples/images/7.jpg)](https://pandao.github.io/editor.md/images/7.jpg "李健首张专辑《似水流年》封面")
-
-> 图为：李健首张专辑《似水流年》封面
-                
-----
-
-### 列表 Lists
-
-#### 无序列表（减号）Unordered Lists (-)
-                
-- 列表一
-- 列表二
-- 列表三
-        
-#### 无序列表（星号）Unordered Lists (*)
-
-* 列表一
-* 列表二
-* 列表三
-
-#### 无序列表（加号和嵌套）Unordered Lists (+)
-                
-+ 列表一
-+ 列表二
-    + 列表二-1
-    + 列表二-2
-    + 列表二-3
-+ 列表三
-    * 列表一
-    * 列表二
-    * 列表三
-
-#### 有序列表 Ordered Lists (-)
-                
-1. 第一行
-2. 第二行
-3. 第三行
-
-#### GFM task list
-
-- [x] GFM task list 1
-- [x] GFM task list 2
-- [ ] GFM task list 3
-    - [ ] GFM task list 3-1
-    - [ ] GFM task list 3-2
-    - [ ] GFM task list 3-3
-- [ ] GFM task list 4
-    - [ ] GFM task list 4-1
-    - [ ] GFM task list 4-2
-                
-----
-                    
-### 绘制表格 Tables
-
-| 项目        | 价格   |  数量  |
-| --------   | -----:  | :----:  |
-| 计算机      | $1600   |   5     |
-| 手机        |   $12   |   12   |
-| 管线        |    $1    |  234  |
-                    
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell 
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
-| Function name | Description                    |
-| ------------- | ------------------------------ |
-| `help()`      | Display the help window.       |
-| `destroy()`   | **Destroy your computer!**     |
-
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
-| col 3 is      | some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
-| zebra stripes | are neat        |    $1 |
-
-| Item      | Value |
-| --------- | -----:|
-| Computer  | $1600 |
-| Phone     |   $12 |
-| Pipe      |    $1 |
-                
-----
-
-#### 特殊符号 HTML Entities Codes
-
-&copy; &  &uml; &trade; &iexcl; &pound;
-&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot; 
-
-X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;
-
-18&ordm;C  &quot;  &apos;
-
-[========]
-
-### Emoji表情 :smiley:
-
-> Blockquotes :star:
-
-#### GFM task lists & Emoji & fontAwesome icon emoji & editormd logo emoji :editormd-logo-5x:
-
-- [x] :smiley: @mentions, :smiley: #refs, [links](), **formatting**, and <del>tags</del> supported :editormd-logo:;
-- [x] list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;
-- [x] [ ] :smiley: this is a complete item :smiley:;
-- [ ] []this is an incomplete item [test link](#) :fa-star: @pandao; 
-- [ ] [ ]this is an incomplete item :fa-star: :fa-gear:;
-    - [ ] :smiley: this is an incomplete item [test link](#) :fa-star: :fa-gear:;
-    - [ ] :smiley: this is  :fa-star: :fa-gear: an incomplete item [test link](#);
-    
-#### 反斜杠 Escape
-
-\*literal asterisks\*
-
-[========]
-            
-### 科学公式 TeX(KaTeX)
-
-$$E=mc^2$$
-
-行内的公式$$E=mc^2$$行内的公式，行内的$$E=mc^2$$公式。
-
-$$x > y$$
-
-$$\(\sqrt{3x-1}+(1+x)^2\)$$
-                    
-$$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$
-
-多行公式：
-
-```math
-\displaystyle
-\left( \sum\_{k=1}^n a\_k b\_k \right)^2
-\leq
-\left( \sum\_{k=1}^n a\_k^2 \right)
-\left( \sum\_{k=1}^n b\_k^2 \right)
-```
-
-```katex
-\displaystyle 
-    \frac{1}{
-        \Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{
-        \frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {
-        1+\frac{e^{-6\pi}}
-        {1+\frac{e^{-8\pi}}
-            {1+\cdots} }
-        } 
-    }
-```
-
-```latex
-f(x) = \int_{-\infty}^\infty
-    \hat f(\xi)\,e^{2 \pi i \xi x}
-    \,d\xi
-```
-
-### 分页符 Page break
-
-> Print Test: Ctrl + P
-
-[========]
-
-### 绘制流程图 Flowchart
-
-```flow
-st=>start: 用户登陆
-op=>operation: 登陆操作
-cond=>condition: 登陆成功 Yes or No?
-e=>end: 进入后台
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-```
-
-[========]
-                    
-### 绘制序列图 Sequence Diagram
-                    
-```seq
-Andrew->China: Says Hello 
-Note right of China: China thinks\nabout it 
-China-->Andrew: How are you? 
-Andrew->>China: I am good thanks!
-```
-
-### End
-                </textarea>
-                
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="themes">请选择编辑区主题</label>
+              <select class="form-control" name="themes" id="themes">
+              </select>
             </div>
-            <input type='submit' class='btn btn-primary'/>
-        </form>
-    <div class='col-sm-1'></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="webstorage-message" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                <h4 class="modal-title" id="modelTitleId">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div id='webstorage-message'>
+                <P>你的web浏览器不支持web存储！我们每5分钟而不是默认的10分钟就会自动为您的将文档上传到服务器</p>
+                <P>在工具条中也有上传工具<i class='fa fa-cloud-upload'></i>，请您在编辑时随时上传文档
+                <p>但可能会因为网络故障等等不可预期的原因导致文档不能及时上传，如果浏览器关闭或故障，会导致你的文档内容损失！<p>
+                <p>建议你使用能支持web存储的浏览器</p>
+                <p>这个<a href='http://dev-test.nemikor.com/web-storage/support-test/' target="_blank">网页</a>可以测试你的浏览器支持存储的能力</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
-
+  <div class='container-fluid'>
+    
+    <div class='col-sm-12'>
+            <div id="post" style="width:100%">
+                <textarea class="editormd-markdown-textarea" name="post-markdown-doc" id='doc'></textarea>                
+            </div>
+</div>
 {%endblock content%}
-
 {%block scripts%}
     {{super()}}
-    <script type='text/javascript' src="/static/editor.md/editormd.js"></script>
     <script type="text/javascript">
-            var editor = editormd({
-                id   : "post",
-                path : "/static/editor.md/lib/",
-                width: 100%$,
-                height: 480,
-                theme : "dark",
-                
-                toolbarIcons : function() {
-                    // Or return editormd.toolbarModes[name]; // full, simple, mini
-                    // Using "||" set icons align right.
-                    return editormd.toolbarModes['simple']
-                },
-                // toolbarIcons : "full", // You can also use editormd.toolbarModes[name] default list, values: full, simple, mini.
-                //previewTheme : "dark",
-                //editorTheme : "pastel-on-dark",
-                codeFold : true,
-                syncScrolling : true,
-                saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-                searchReplace : true,
-                //watch : false,                // 关闭实时预览
-                htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启    
-                //toolbar  : false,             //关闭工具栏
-                //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-                emoji : true,
-                taskList : true,
-                tocm            : true,         // Using [TOCM]
-                tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-                flowChart : true,             // 开启流程图支持，默认关闭
-                sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
-                //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
-                //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
-                //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
-                //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
-                //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-                imageUpload : true,
-                imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL : "./php/upload.php",
-                onload : function() {
-                    console.log('onload', this);
-                    //this.fullscreen();
-                    //this.unwatch();
-                    //this.watch().fullscreen();
-                    //this.setMarkdown("#PHP");
-                    //this.width("100%");
-                    //this.height(480);
-                    //this.resize("100%", 640);
+        var csrf_token = "{{ csrf_token() }}";    
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
                 }
-            });
+            }
+        });
     </script>
-    
-
+    <script type='text/javascript' src="/static/editor.md/editormd.js"></script>
+    <script type='text/javascript' src="/static/editor/editor.js"></script>
 {%endblock scripts%}
