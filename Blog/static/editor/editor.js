@@ -54,20 +54,23 @@ $(function(){
                 "h1", "h2", "h3", "h4", "h5", "h6", "|", 
                 "list-ul", "list-ol", "hr", "|",
                 "watch", "preview", "fullscreen", "|",
-                "help", '|', 'save', 'submit']
+                "help", '|', 'save', 'submit', '||', 'editorAreaTheme']
         },
         toolbarIconsClass : {
             save : "fa fa-save",  // 指定一个FontAawsome的图标类
-            submit: 'fa fa-cloud-upload'
+            submit: 'fa fa-cloud-upload',
+            editorAreaTheme:'fa fa-cog'
         },
         toolbarIconTexts : {
             save  : "客户端存储", // 如果没有图标，则可以这样直接插入内容，可以是字符串或HTML标签
-            submit: '提交到服务器'
+            submit: '提交到服务器',
+            editorAreaTheme: '编辑区主题'
         },
         lang:{
             toolbar:{
                 save: '客户端存储',
-                submit : '上传到云端'
+                submit : '上传到云端',
+                editorAreaTheme:'编辑区主题'
             }
         },
         // toolbarIcons : "full", // You can also use editormd.toolbarModes[name] default list, values: full, simple, mini.
@@ -102,6 +105,10 @@ $(function(){
             },
             submit: function(cm, icon, cursor, selection){
                 post_doc()
+            },
+            editorAreaTheme:function(){
+                
+                $('#myModal').modal('show')
             }
         },
 
@@ -123,7 +130,30 @@ $(function(){
         }
     });
 
-    //editor.setEditorTheme('monokai')
+    var themes = [
+        "default", "3024-day", "3024-night",
+        "ambiance", "ambiance-mobile",
+        "base16-dark", "base16-light", "blackboard",
+        "cobalt",
+        "eclipse", "elegant", "erlang-dark",
+        "lesser-dark",
+        "mbo", "mdn-like", "midnight", "monokai",
+        "neat", "neo", "night",
+        "paraiso-dark", "paraiso-light", "pastel-on-dark",
+        "rubyblue",
+        "solarized",
+        "the-matrix", "tomorrow-night-eighties", "twilight",
+        "vibrant-ink",
+        "xq-dark", "xq-light"
+    ];
+    $.each(themes, function (i, item) {
+        $('#themes').append($('<option>', { 
+            text : item
+        }));
+    });
+    $('#themes').on('change', function(){
+        editor.setEditorTheme($('#themes option:selected').text())
+    })    
 
     setInterval(post_doc, post_interval)
 })
