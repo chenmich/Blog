@@ -36,8 +36,9 @@ post_titles = ['First', 'Second', 'Third', 'Fouth', 'Fifth',
                     'Sixth', 'Seventh', 'Eight', 'Nineth', 'Tenth']
 post_writers = ['micheal', 'kfl', 'lrq', 'zl', 'zyq',
                         'ny', 'lzj', 'xzr', 'zs', 'ls']
-first_paragraph = '###About the responsive mobilt-first web'
-first_paragraph = first_paragraph + "Build responsive, mobile-first projects on the web with the world's most popular front-end component library.\nBootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery."
+first_paragraph = '''###About the responsive mobilt-first
+We build responsive, mobile-first projects on the web with the world's most popular front-end component library.Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.
+'''
 
 post_content ='##About SQL database'
 post_content = post_content + "SQL databases behave less like object collections the more size and performance start to matter; object collections behave less like tables and rows the more abstraction starts to matter. SQLAlchemy aims to accommodate both of these principles.\n"
@@ -69,4 +70,8 @@ def get_fake_post(post_title):
                     other_writers=post_writers[_index + 1:],
                     first_paragraph=first_paragraph,
                     post_content=post_content)
-        
+
+x = '''
+###About the responsive mobilt-first
+We build responsive, mobile-first projects on the web with the world's most popular front-end component library.Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.
+'''    
