@@ -1,8 +1,4 @@
 {%extends 'base_for_blog.html'%}
-{%block styles%}
-    {{super()}}
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css" />
-{%endblock styles%}
 {%block head%}
     {{super()}}
     <script type=text/javascript>
@@ -85,6 +81,5 @@
             }
         });
     </script>
-    <script type='text/javascript' src="/static/editor.md/editormd.js"></script>
     <script type='text/javascript' src="/static/editor/editor.js"></script>
 {%endblock scripts%}
