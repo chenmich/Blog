@@ -11,7 +11,12 @@
                         <a href="{{url_for('post_show', post_title=post.title)}}"><h2>{{post.title}}<h2></a>                        
                 </div>
                 <div class="row">
-                    {{post.first_paragraph}}
+                        <div id="post_first_pragraph">
+                            <textarea id="content" style="display:none;">                
+{{post.first_paragraph}}
+                            </textarea>
+                        </div>
+
                 </div>
                 <div class='row'>
                         <div class="dropdown justify-content-right">
@@ -27,3 +32,7 @@
         {% endfor%}
     </ul>
 {% endblock left_content %}
+{%block scripts%}
+    {{super()}}
+    <script type='text/javascript' src='/static/editor/post_list.js'></script>
+{%endblock scripts%}
