@@ -1,4 +1,8 @@
-{% extends "bootstrap/base.html" %} 
+{% extends "bootstrap/base.html" %}
+{%block styles%}
+    {{super()}}
+    {%include 'editorCss.html' ignore missing %}
+{%endblock styles%}
 {% block title %}混凝土工程博客{% endblock %} 
 {% block navbar %}
 <div class="navbar navbar-light" role="navigation">
@@ -55,6 +59,10 @@
         </div>
     </div>
 {% endblock %}
+{%block scripts%}
+    {{super()}}
+    {%include 'editorScripts.html' ignore missing %}
+{%endblock scripts%}
 
 
 
