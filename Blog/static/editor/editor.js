@@ -42,7 +42,7 @@ $(function(){
         height: 100%$,
         theme : "default",
         previewTheme : "default",
-        editorTheme : editormd.editorThemes['monokai'],
+        editorTheme : 'default',
         
         toolbarIcons : function() {
             // Or return editormd.toolbarModes[name]; // full, simple, mini
@@ -97,7 +97,7 @@ $(function(){
         imageUpload : true,
         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL : "./php/upload.php",
-
+        autoLoadModules : false,
         toolbarHandlers : {
             save: function(cm, icon, cursor, selection){
                 save_doc()
@@ -146,15 +146,22 @@ $(function(){
         "vibrant-ink",
         "xq-dark", "xq-light"
     ];
+    //user can select theme of editor
+    //and set theme  by last user selected theme 
     $.each(themes, function (i, item) {
         $('#themes').append($('<option>', { 
             text : item
-        }));
-    });
+        }));        
+    });    
+    if(localStorage.userTheme && localStorage.userTheme !== '')
+        $('#themes option:selected').text(localStorage.userTheme)    
     $('#themes').on('change', function(){
         editor.setEditorTheme($('#themes option:selected').text())
-    })    
-
+        localStorage.userTheme = $('#themes option:selected').text()
+    })
+    if(localStorage.userTheme && localStorage.userTheme !== '')
+        editor.setEditorTheme(localStorage.userTheme) //else is set 'default'
+    
     setInterval(post_doc, post_interval)
 })
 
