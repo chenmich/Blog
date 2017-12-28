@@ -7,7 +7,11 @@
         <a href="{{url_for('post_show', post_title=post.title)}}"><h2>{{post.title}}<h2></a>                        
 </div>
 <div class="col-2 text-truncate flex-wrap" style='height:100;overflow-y: scroll'>
-    {{post.post_content}}
+    <div id='post_show'>
+        <textarea id='post_content' style='display:none'>
+{{post.post_content}}
+        </textarea>
+    </div>
 </div><hr>
 
 <nav class="nav justify-content-center|justify-content-end">
@@ -27,3 +31,7 @@
     </div>
 </nav>
 {%endblock left_content%}
+{%block scripts%}
+    {{super()}}
+    <script type='text/javascript' src='/static/editor/post_show.js'></script>
+{%endblock scripts%}
