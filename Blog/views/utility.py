@@ -36,12 +36,16 @@ post_titles = ['First', 'Second', 'Third', 'Fouth', 'Fifth',
                     'Sixth', 'Seventh', 'Eight', 'Nineth', 'Tenth']
 post_writers = ['micheal', 'kfl', 'lrq', 'zl', 'zyq',
                         'ny', 'lzj', 'xzr', 'zs', 'ls']
-first_paragraph = "Build responsive, mobile-first projects on the web with the world's most popular front-end component library.\nBootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery."
+first_paragraph = '''###About the responsive mobilt-first
+We build responsive, mobile-first projects on the web with the world's most popular front-end component library.Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.
+'''
 
-post_content = "SQL databases behave less like object collections the more size and performance start to matter; object collections behave less like tables and rows the more abstraction starts to matter. SQLAlchemy aims to accommodate both of these principles.\n"
+post_content ='##About SQL database'
+post_content = post_content + "SQL databases behave less like object collections the more size and performance start to matter; object collections behave less like tables and rows the more abstraction starts to matter. SQLAlchemy aims to accommodate both of these principles.\n"
 post_content = post_content + "SQLAlchemy considers the database to be a relational algebra engine, not just a collection of tables. Rows can be selected from not only tables but also joins and other select statements; any of these units can be composed into a larger structure. SQLAlchemy's expression language builds on this concept from its core.\n"
 post_content = post_content + "SQLAlchemy is most famous for its object-relational mapper (ORM), an optional component that provides the data mapper pattern, where classes can be mapped to the database in open ended, multiple ways - allowing the object model and database schema to develop in a cleanly decoupled way from the beginning.\n"
 post_content = post_content + "SQLAlchemy's overall approach to these problems is entirely different from that of most other SQL / ORM tools, rooted in a so-called complimentarity- oriented approach; instead of hiding away SQL and object relational details behind a wall of automation, all processes are fully exposed within a series of composable, transparent tools. The library takes on the job of automating redundant tasks while the developer remains in control of how the database is organized and how SQL is constructed.\n"
+post_content = post_content + "###why the SQLAlchemy"
 post_content = post_content + "The main goal of SQLAlchemy is to change the way you think about databases and SQL!\n"
 post_content = post_content + "Read some key features of SQLAlchemy, as well as what people are saying about SQLAlchemy.\n"
 
@@ -66,4 +70,8 @@ def get_fake_post(post_title):
                     other_writers=post_writers[_index + 1:],
                     first_paragraph=first_paragraph,
                     post_content=post_content)
-        
+
+x = '''
+###About the responsive mobilt-first
+We build responsive, mobile-first projects on the web with the world's most popular front-end component library.Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.
+'''    

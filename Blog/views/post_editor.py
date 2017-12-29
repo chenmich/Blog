@@ -1,7 +1,6 @@
 from flask import render_template, request
 from Blog import app
 from ..models import Post
-import html
 
 
 
