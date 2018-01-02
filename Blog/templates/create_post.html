@@ -1,0 +1,24 @@
+{%extends 'bootstrap/base.html'%}
+
+{% block title %}
+    创建博文
+{% endblock title %}
+
+{%block content%}
+<div class='container'>
+    <div class='row' >
+        <h2>创建博客文章</h2>
+    </div>
+    
+    <div class='container'>
+        <form method='post'>
+            {{ form.csrf_token }}
+            {{ form.post_title()}}
+            {{ form.abstract()}}
+            {{ form.other_writers()}}
+            {{ form.publish()}}
+            {{ form.submit_post()}}
+        </form>
+    </div>
+</div>  
+{% endblock content%}

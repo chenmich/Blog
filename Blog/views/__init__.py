@@ -5,3 +5,4 @@ from . import index
 from . import post_by_user
 from . import post_show
 from . import post_editor
+from . import create_post
