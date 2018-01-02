@@ -8,16 +8,22 @@
 <div class='container'>
     <div class='row' >
         <h2>创建博客文章</h2>
-    </div>
-    
+    </div>    
     <div class='container'>
         <form method='post'>
             {{ form.csrf_token }}
-            {{ form.post_title()}}
-            {{ form.abstract()}}
-            {{ form.other_writers()}}
-            {{ form.publish()}}
-            {{ form.submit_post()}}
+            <div class="form-group">
+                {{form.post_title.label(for_='title')}}
+                {{form.post_title(class="form-control", **{'aria-describedby':'helpId'})}}              
+                <small id="helpId" class="form-text text-muted"></small>
+            </div>
+            
+
+            
+            
+            {{ form.submit_post(class_='btn btn-success')}}
+
+            
         </form>
     </div>
 </div>  

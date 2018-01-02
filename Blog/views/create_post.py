@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, TextAreaField, SelectMultipleField, SubmitField
 
@@ -16,5 +16,7 @@ class PostAttributeForm(FlaskForm):
 @app.route('/create_post', methods=['post', 'get'])
 def create_post():
     form = PostAttributeForm()
-
+    if request.method == 'POST':
+        print('The method is post')
+        print(form.post_title.data)
     return render_template('create_post.html', form=form)
