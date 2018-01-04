@@ -5,7 +5,11 @@
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         $POST_URL = $SCRIPT_ROOT  + '/editor' + '/{{post_title}}'
     </script>
-    
+    <style type='text/css'>
+        body{
+            background-color: #00eeee
+        }
+    </style>
 {%endblock head%}
 {%block metas%}
     {{super()}}

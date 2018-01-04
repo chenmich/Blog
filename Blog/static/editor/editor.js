@@ -41,7 +41,7 @@ $(function(){
         path : "/static/editor.md/lib/",
         width: 100%$,
         height: 100%$,
-        theme : "default",
+        theme : "dark",
         previewTheme : "default",
         editorTheme : 'default',
         
