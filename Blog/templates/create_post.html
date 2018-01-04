@@ -29,24 +29,42 @@
     {{ form.csrf_token }}
 </form>
 <div class='container'>
-    <div class='row' >
-        <h2>创建博客文章</h2>
-    </div>
-    <div class="form-group">
-        {{form.post_title.label(for_='title', form='create_post')}}
-        {{form.post_title(class="form-control", form='create', **{'aria-describedby':'titleHelp'})}}              
-        <small id="titleHelp" class="form-text text-muted">请在这里输入文章的标题</small>
-    </div>
-    <div class='row'>                
-        <button type='button' class='btn btn-secondary' id='btn-writers' >
-            其它作者<span class="badge badge-light" id='selected_name'></span>
-        </button>                        
+    <div class='row' >            
+       <h2 class='text-center'>创建博客文章</h2>
     </div>  
-    <div class='form-group' style="padding:6px">
-        {{ form.submit_post(class_='btn btn-success', form='create_post')}}
+
+    <div class="form-group row">
+        <div class='col-sm-2'>
+            {{form.post_title.label(for_='title', form='create_post', class_='form-label ')}}
+        </div>
+        <div class='col-sm-6'>
+            {{form.post_title(class="form-control", form='create_post', **{'aria-describedby':'titleHelp'})}}
+            <small id="titleHelp" class="form-text text-muted">请在这里输入文章的标题</small>
+        </div>  
+        <div class='col-sm-4'>
+            {%if form.errors%}
+            <span class='form-label' style='color:red'>您需要输入文章标题</span>
+            {%endif%}
+        </div>
+    </div>
+    
+    
+
+     
+    <div class='form-group row'>                
+        <button type='button' class='btn badge-pill btn-primary btn-sm' id='btn-writers' >
+            其它作者:  <span class="badge badge-dark" id='selected_name'></span> 
+        </button><span class="badge badge-dark" id='selected_name'></span>                      
+    </div>
+     
+    <div class='form-group row'>
+        {{ form.submit_post(class_='btn btn-primary', form='create_post')}}
     </div>
 
-</div>  
+
+
+</div>
+
 {% endblock content%}
 {%block scripts%}
     {%include 'bootstrapScripts.html' ignore missing %}
@@ -57,12 +75,15 @@
             })
             $('#other_writers').on('change', function(){
                 var selected_writers = this.selectedOptions
-                var selected_name = selected_writers[0].text
+                var selected_name = selected_writers[0].text 
                 for(i = 1; i < selected_writers.length; i++){
-                    selected_name = selected_name + ' , ' + selected_writers[i].text
+                    selected_name = selected_name + '  ,  ' + selected_writers[i].text
                 }
                 $('#selected_name').text(selected_name)
-            })
+            })            
+        })
+        ;$(function(){
+            $('#other_writers').change()
         })
             
     </script>
