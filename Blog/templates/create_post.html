@@ -15,8 +15,7 @@
         <div class="modal-body">
             <div class="form-group">
                 <label for="other_writers">请选择作者姓名</label>
-                {{form.other_writers(class_='form-control', form='create_post')}}
-                
+                {{form.other_writers(class_='form-control', form='create_post', size=20)}}                
             </div>
         </div>
         <div class="modal-footer">
@@ -41,7 +40,7 @@
             <small id="titleHelp" class="form-text text-muted">请在这里输入文章的标题</small>
         </div>  
         <div class='col-sm-6'>
-            {%if form.errors%}
+            {%if form.post_title.errors%}
             <span class='form-label' style='color:red'>您需要输入文章标题</span>
             {%endif%}
         </div>
