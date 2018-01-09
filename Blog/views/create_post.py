@@ -11,6 +11,8 @@ def getAllUserIdentifiers():
     users_identifiers = [(str(user.id), user.username) for user in users]
     return users_identifiers
 
+def _create_post_entity(username, post_title, other_writers):
+    pass
 
 class PostAttributeForm(FlaskForm):
     post_title = StringField('博文标题', validators=[DataRequired()])
@@ -22,8 +24,9 @@ class PostAttributeForm(FlaskForm):
 @app.route('/create_post', methods=['post', 'get'])
 def create_post():
     form = PostAttributeForm()    
-    if form.validate_on_submit():        
+    if form.validate_on_submit():
+        _create_post_entity(current_user.username, form.post_title, form.other_writers)    
         return 'ok'
     else:
-        print(form.post_title.errors)
+
         return render_template('create_post.html', form=form)
