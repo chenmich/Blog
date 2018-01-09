@@ -73,26 +73,30 @@ def create_base_row(db):
                     email='zyq@163.com',
                     password='111111',
                     role=admin_role
-        )
+                )
 
         zl = User(username='zl',
                    email='zl@163.com',
                    password='111111',
                    role=moderator_role
-        )
+                )
 
         ny = User(username='ny',
                    email='ny@163.com',
                    password='111111',
                    role=moderator_role
-        )
+                )
 
         lzj = User(username='lzj',
                     email='lzj@163.com',
                     password='111111',
                     role=common_role
-        )
+                )
         
         db.session.add_all([micheal, lrq, zyq, 
                             kfl, zl, ny, lzj])
         db.session.commit()
+
+if(__name__ == '__main__'):
+    db.drop_all()
+    db.create_all()

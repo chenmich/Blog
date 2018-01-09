@@ -8,12 +8,13 @@ from create_data_for_test import create_base_row
 
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/blog.dat"
         #'sqlite:///' + os.path.join(basedir, 'test.dat') 
         
         app.config['WTF_CSRF_ENABLED'] = False
         app.testing = True        
         self.app = app.test_client()
+        db.drop_all()
         db.create_all()
         create_base_row(db=db)
     def tearDown(self):
