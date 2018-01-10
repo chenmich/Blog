@@ -5,10 +5,11 @@ import unittest
 from Blog import db, app
 from Blog.models import Role, role_name, Permission, permission_name, User, Post, Post_User
 from create_data_for_test import create_base_row
+from Blog.views.create_post import _create_post_entity
 
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/blog.dat"
+        #app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/blog.dat"
         #'sqlite:///' + os.path.join(basedir, 'test.dat') 
         
         app.config['WTF_CSRF_ENABLED'] = False
@@ -19,7 +20,7 @@ class test_user_post_relationship(unittest.TestCase):
         create_base_row(db=db)
     def tearDown(self):
         db.session.remove()
-        db.drop_all()
+        #db.drop_all()
     
 
     def test_user_role(self):
@@ -123,8 +124,22 @@ class test_user_post_relationship(unittest.TestCase):
         _micheal = post_first_first_author_association[0].writer
         self.assertEqual(_micheal.username, micheal.username)
 
+    def test_post_create(self):
+        other_writers_id = ['2', '3', '4']
+        first_writer_id = 1
+        post_title = 'test create post function'
+        _create_post_entity(first_writer_id, post_title, other_writers_id)
+        post = Post.query.filter_by(title=post_title).all()[0]
+        self.assertEqual(post.title, post_title)
+        self.assertEqual(len(post.writers), 4)
+        self.assertEqual(post.first_writer.writer.id, first_writer_id)
+        other_writers = post.other_writers
+        self._assert_other_writer(other_writers, other_writers_id)
 
-
+    def _assert_other_writer(self, other_writers, other_writers_id):
+        self.assertEqual(len(other_writers), len(other_writers_id))
+        for i in range(0, len(other_writers)):
+            self.assertEqual(other_writers[i].id, int(other_writers_id[i]))    
 
 if __name__ == '__main__':
     unittest.main()

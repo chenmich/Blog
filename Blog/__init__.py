@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] =\
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 app.config['SECRET_KEY'] = 'Concrete Engineering Blog'
-db = SQLAlchemy(app)
+db = SQLAlchemy(app, session_options={"autoflush": False})
 
 login_manager = LoginManager(app)
 

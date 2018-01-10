@@ -38,15 +38,15 @@ class Post(db.Model, BasePost):
     def first_writer(self):
         for writer in self.writers:
             if writer.is_first_author:
-                return writer
+                return writer.writer
         return None
     @property
     def other_writers(self):
         _writers = []
         for  writer in self.writers:
-            if writer is not True:
-                _writers.append(writer)
-        return writer
+            if writer.is_first_author is not True:
+                _writers.append(writer.writer)
+        return _writers
 
 
     def __repr__(self):
