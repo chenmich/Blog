@@ -1,4 +1,3 @@
-from Blog import app
 from Blog import db
 
 

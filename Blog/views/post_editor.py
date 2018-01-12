@@ -1,10 +1,10 @@
 from flask import render_template, request
-from Blog import app
+from Blog import blog_blue
 from ..models import Post
 
 
 
-@app.route('/editor/<post_title>', methods=['POST', 'GET'])
+@blog_blue.route('/editor/<post_title>', methods=['POST', 'GET'])
 def post_editor(post_title):
     if request.method == 'POST':
         print(request.json['markdownDoc'])

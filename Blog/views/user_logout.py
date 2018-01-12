@@ -1,9 +1,8 @@
-from Blog import db, app
+from Blog import blog_blue
 from flask_login import logout_user, login_required, current_user
-from flask import render_template, redirect
+from flask import render_template, redirect, url_for
 
-@app.route('/logout')
-@login_required
+@blog_blue.route('/logout')
 def user_logout():
     logout_user()
-    return redirect('/')
+    return redirect(url_for('blog.index'))

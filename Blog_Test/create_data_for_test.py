@@ -2,9 +2,8 @@ import os
 import sys
 sys.path.append('.')
 import unittest
-from Blog import db, app
+from Blog import db, create_app
 from Blog.models import Role, role_name, Permission, permission_name, User, Post, Post_User
-
 
 def create_base_row(db):    
         #roles
@@ -97,6 +96,5 @@ def create_base_row(db):
                             kfl, zl, ny, lzj])
         db.session.commit()
 
-if(__name__ == '__main__'):
-    db.drop_all()
-    db.create_all()
+
+    

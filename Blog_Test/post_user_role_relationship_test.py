@@ -1,26 +1,24 @@
 import os
 import sys
+sys.path.append('..')
 sys.path.append('.')
 import unittest
-from Blog import db, app
+from Blog import db, create_app
 from Blog.models import Role, role_name, Permission, permission_name, User, Post, Post_User
 from create_data_for_test import create_base_row
 from Blog.views.create_post import _create_post_entity
 
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
-        #app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/blog.dat"
-        #'sqlite:///' + os.path.join(basedir, 'test.dat') 
-        
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.testing = True        
-        self.app = app.test_client()
-        db.drop_all()
+        self.app = create_app('testing')
+        self.app_context = self.app_context()
+        self.app_context.push()
         db.create_all()
         create_base_row(db=db)
     def tearDown(self):
         db.session.remove()
-        #db.drop_all()
+        db.drop_all()
+        self.app_context.pop()
     
 
     def test_user_role(self):

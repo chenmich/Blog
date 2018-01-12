@@ -1,10 +1,10 @@
-from flask import redirect, render_template
+from flask import redirect, render_template, url_for
 from flask_login import login_user
 from flask_wtf.form import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 
-from Blog import app, db
+from Blog import blog_blue, db
 from ..models import User, Role, role_name
 
 
@@ -15,7 +15,7 @@ class userRegisterForm(FlaskForm):
     e_mail = StringField(label='电子邮件', validators=[Email()])
 
 
-@app.route('/register', methods=['GET','POST'])
+@blog_blue.route('/register', methods=['GET','POST'])
 def user_register():
     form = userRegisterForm()    
     if form.validate_on_submit():
@@ -30,7 +30,7 @@ def user_register():
             )
             db.session.add(register_user)            
             login_user(register_user)
-            return redirect('/')
+            return redirect(url_for('blog.index'))
         else:
             return '该用户名已存在'
     return render_template('user_register.html', form=form)

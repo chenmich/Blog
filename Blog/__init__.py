@@ -1,27 +1,27 @@
-import os
-
 from flask import Flask
+from flask.blueprints import Blueprint
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
+from config import config
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+blog_blue = Blueprint('blog', __name__)
+db = SQLAlchemy(session_options={"autoflush": False})
+login_manager = LoginManager()
+bootstrap = Bootstrap()
+csrf = CSRFProtect()
 
-app = Flask(__name__)
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    app.register_blueprint(blog_blue, url_prefix='/blog')    
 
-app.config['SQLALCHEMY_DATABASE_URI'] =\
- 'sqlite:///' + os.path.join(basedir, 'data/blog.dat')
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+    login_manager.init_app(app)
+    db.init_app(app)
+    bootstrap.init_app(app)
+    csrf.init_app(app)
 
-app.config['SECRET_KEY'] = 'Concrete Engineering Blog'
-db = SQLAlchemy(app, session_options={"autoflush": False})
-
-login_manager = LoginManager(app)
-
-Bootstrap(app)
-
-csrf = CSRFProtect(app)
-
+    return app 
 
 from Blog import views

@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, TextAreaField, SelectMultipleField, SubmitField
 from wtforms.validators import DataRequired
 from flask_login import current_user
-from Blog import app, db
+from Blog import blog_blue, db
 from ..models import User, Post, Post_User
 
 def getAllUserIdentifiers():
@@ -38,7 +38,7 @@ class PostAttributeForm(FlaskForm):
     other_writers = SelectMultipleField('其它作者')
     submit_post = SubmitField('提交')
 
-@app.route('/create_post', methods=['post', 'get'])
+@blog_blue.route('/create_post', methods=['post', 'get'])
 def create_post():
     print(current_user)
     form = PostAttributeForm()
