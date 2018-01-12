@@ -1,6 +1,4 @@
-import os
 import sys
-sys.path.append('..')
 sys.path.append('.')
 import unittest
 from Blog import db, create_app
@@ -11,7 +9,7 @@ from Blog.views.create_post import _create_post_entity
 class test_user_post_relationship(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
-        self.app_context = self.app_context()
+        self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
         create_base_row(db=db)
@@ -130,7 +128,7 @@ class test_user_post_relationship(unittest.TestCase):
         post = Post.query.filter_by(title=post_title).all()[0]
         self.assertEqual(post.title, post_title)
         self.assertEqual(len(post.writers), 4)
-        self.assertEqual(post.first_writer.writer.id, first_writer_id)
+        self.assertEqual(post.first_writer.id, first_writer_id)
         other_writers = post.other_writers
         self._assert_other_writer(other_writers, other_writers_id)
 
