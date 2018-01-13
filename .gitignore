@@ -99,6 +99,6 @@ ENV/
 .mypy_cache/
 
 venv/
-.vscode/
+
 bower_components/
 node_modules/
