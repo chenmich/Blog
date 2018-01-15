@@ -10,9 +10,14 @@ def getAllUserIdentifiers():
     users = User.query.filter(User.id.isnot(current_user.id)).all()
     users_identifiers = [(str(user.id), user.username) for user in users]
     return users_identifiers
-
+def _is_post_existed(title):
+    post = Post.query.filter_by(title=title).first()
+    if post is not None: 
+        return True
+    else:
+        return False
 def _create_post_entity(userId, post_title, other_writers_id):
-        
+       
     first_writer = User.query.filter_by(id=userId).all()[0]
     post = Post(title=post_title)
     first_writer_post_relationship = Post_User(is_first_author=True)
@@ -40,13 +45,14 @@ class PostAttributeForm(FlaskForm):
 
 @blog_blue.route('/create_post', methods=['post', 'get'])
 def create_post():
-    print(current_user)
     form = PostAttributeForm()
     form.other_writers.choices = getAllUserIdentifiers() 
     if form.validate_on_submit():
+        if _is_post_existed(form.post_title.data):
+            return render_template('create_post.html', form=form, is_post_existed=True)
         other_writers_id = [ writer_id  for writer_id in form.other_writers.data]        
         post = _create_post_entity(current_user.id, form.post_title.data, other_writers_id)    
         return 'ok'
     else:
-        return render_template('create_post.html', form=form)
+        return render_template('create_post.html', form=form, is_post_existed=False)
 

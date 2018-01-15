@@ -43,6 +43,9 @@
             {%if form.post_title.errors%}
             <span class='form-label' style='color:red'>您需要输入文章标题</span>
             {%endif%}
+            {% if is_post_existed %}
+            <span class='form-label' style='color:red'>已有这个标题的博客文章，请另选标题</span>
+            {% endif %}
         </div>
     </div>
 
