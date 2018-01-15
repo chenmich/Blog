@@ -7,8 +7,8 @@
         "request": "launch",
         "stopOnEntry": false,
         "pythonPath": "${config:python.pythonPath}",
+        "program":"home/development/Blog/venv/bin/flask",
         "module": "flask.cli",
-        "program":"home/Development/Blog/venv/bin/flask",
         "cwd": "${workspaceRoot}",
         "env": {
           "FLASK_APP": "run_blog.py",

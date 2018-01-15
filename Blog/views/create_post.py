@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, TextAreaField, SelectMultipleField, SubmitField
 from wtforms.validators import DataRequired
@@ -52,7 +52,7 @@ def create_post():
             return render_template('create_post.html', form=form, is_post_existed=True)
         other_writers_id = [ writer_id  for writer_id in form.other_writers.data]        
         post = _create_post_entity(current_user.id, form.post_title.data, other_writers_id)    
-        return 'ok'
+        return redirect(url_for('blog.post_editor', post_title=post.title))
     else:
         return render_template('create_post.html', form=form, is_post_existed=False)
 

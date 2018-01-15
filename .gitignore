@@ -102,3 +102,5 @@ venv/
 .vscode/
 bower_components/
 node_modules/
+.vscode/launch.json
+.vscode/settings.json
