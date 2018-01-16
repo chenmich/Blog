@@ -3,7 +3,7 @@
     {{super()}}
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-        $POST_URL = $SCRIPT_ROOT  + '/editor' + '/{{post_title}}'
+        $POST_URL = $SCRIPT_ROOT  + '/blog/editor' + '/{{post_title}}'
     </script>
     <style type='text/css'>
         body{
