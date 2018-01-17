@@ -135,7 +135,9 @@ class test_user_post_relationship(unittest.TestCase):
     def _assert_other_writer(self, other_writers, other_writers_id):
         self.assertEqual(len(other_writers), len(other_writers_id))
         for i in range(0, len(other_writers)):
-            self.assertEqual(other_writers[i].id, int(other_writers_id[i]))    
+            self.assertEqual(other_writers[i].id, int(other_writers_id[i]))
+    
+      
 
 if __name__ == '__main__':
     unittest.main()

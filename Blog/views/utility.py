@@ -1,4 +1,4 @@
-from ..models.post import BasePost
+from ..models.post import BasePost, Post
 
 class FakePost(BasePost):    
     def __init__(self, title, first_writer,
@@ -30,7 +30,10 @@ class FakePost(BasePost):
         return '<FakePost {}>'.format(self.title)
     
 def get_posts(writer=None):
-    pass
+    if writer is None:
+        return Post.query.all()
+    else:
+        return Post.query.filter(Post.first_writer.id == writer.id).all()
 
 post_titles = ['First', 'Second', 'Third', 'Fouth', 'Fifth',
                     'Sixth', 'Seventh', 'Eight', 'Nineth', 'Tenth']
