@@ -47,7 +47,9 @@ class Post(db.Model, BasePost):
             if writer.is_first_author is not True:
                 _writers.append(writer.writer)
         return _writers
-
+    @property
+    def first_paragraph(self):
+        return 'The first_writer property is not impletemented!'
 
     def __repr__(self):
         return '<Post  %r>'%self.title

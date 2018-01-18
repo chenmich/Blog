@@ -11,5 +11,6 @@ def index():
     #for production
     #posts = get_posts()
     #for development
-    posts = get_fake_posts()
+    #posts = get_fake_posts()
+    posts = get_posts()
     return render_template('index.html', posts=posts)

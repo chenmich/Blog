@@ -1,4 +1,5 @@
-from ..models.post import BasePost, Post
+from ..models.post import BasePost, Post, User
+
 
 class FakePost(BasePost):    
     def __init__(self, title, first_writer,
@@ -29,11 +30,22 @@ class FakePost(BasePost):
     def __repr__(self):
         return '<FakePost {}>'.format(self.title)
     
-def get_posts(writer=None):
-    if writer is None:
+def get_posts(writername=None):
+    if writername is None:
         return Post.query.all()
     else:
-        return Post.query.filter(Post.first_writer.id == writer.id).all()
+        writer = User.query.filter_by(username=writername).first()
+        writer_post_relationships = writer.posts
+        _post_first_writer = []
+        _post_other_writer = []
+        for writer_post in writer_post_relationships:
+            if writer_post.is_first_author:
+                _post_first_writer.append(writer_post.post)
+            else:
+                _post_other_writer.append(writer_post.post)
+        posts = _post_first_writer.extend(_post_other_writer)
+        return posts
+
 
 post_titles = ['First', 'Second', 'Third', 'Fouth', 'Fifth',
                     'Sixth', 'Seventh', 'Eight', 'Nineth', 'Tenth']

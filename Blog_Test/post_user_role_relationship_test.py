@@ -3,7 +3,7 @@ sys.path.append('.')
 import unittest
 from Blog import db, create_app
 from Blog.models import Role, role_name, Permission, permission_name, User, Post, Post_User
-from create_data_for_test import create_base_row
+from .create_data_for_test import create_base_row
 from Blog.views.create_post import _create_post_entity
 
 class test_user_post_relationship(unittest.TestCase):
