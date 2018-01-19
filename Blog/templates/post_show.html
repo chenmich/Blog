@@ -29,7 +29,7 @@
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">其它作者 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         {%for writer in post.other_writers%}
-                            <li><a href="{{url_for('blog.index', username=writer)}}">{{writer}}</a></li>
+                            <li><a href="{{url_for('blog.index', username=writer)}}">{{writer.username}}</a></li>
                         {%endfor%}
                     </ul>
             </div>
