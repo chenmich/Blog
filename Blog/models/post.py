@@ -15,7 +15,7 @@ class BasePost():
     def first_paragraph(self):
         raise NotImplementedError("The firs_tparagraph property is not impletemented!")
     @property
-    def post_content(self):
+    def content(self):
         raise NotImplementedError("The post_content property is not impletemented!")
 class Post_User(db.Model):
     #id = db.Column(db.Integer, primary_key=True)
@@ -50,6 +50,9 @@ class Post(db.Model, BasePost):
     @property
     def first_paragraph(self):
         return 'The first_writer property is not impletemented!'
+    @property
+    def content(self):
+        return "The post_content property is not impletemented!"
 
     def __repr__(self):
         return '<Post  %r>'%self.title

@@ -43,8 +43,8 @@ def get_posts(writername=None):
                 _post_first_writer.append(writer_post.post)
             else:
                 _post_other_writer.append(writer_post.post)
-        posts = _post_first_writer.extend(_post_other_writer)
-        return posts
+        _post_first_writer.extend(_post_other_writer)
+        return _post_first_writer
 
 
 post_titles = ['First', 'Second', 'Third', 'Fouth', 'Fifth',
