@@ -9,7 +9,7 @@
                         <a href="{{url_for('blog.post_show', post_title=post.title)}}"><h2>{{post.title}}<h2></a>                        
                 </div>
                 <div class="row">
-                        <div id="post_first_pragraph{{post.title}}">
+                        <div id="post_first_pragraph{{post.id}}">
                             <textarea id="content" style="display:none;">                
 {{post.first_paragraph}}
                             </textarea>

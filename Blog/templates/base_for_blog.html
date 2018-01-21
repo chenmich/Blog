@@ -9,40 +9,43 @@
 {%endblock styles%}
 {% block title %}混凝土工程博客{% endblock %} 
 {% block navbar %}
-<div class="navbar navbar-light" role="navigation">
+<nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="nav-link navbar-brand text-white bg-dark" href="{{url_for('blog.index')}}">主页</a>
-            {%if current_user.is_authenticated%}
-                <a class="nav-link navbar-brand text-white bg-dark" href="{{url_for('blog.create_post')}}">创建博文</a>
-            {%endif%}
+            <a class="navbar-brand" href="{{url_for('blog.index')}}">混凝土工程</a>
         </div>
-        <div class="nav navbar-nav navbar-right">
-            <div class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                    {%if current_user.is_authenticated%}
-                        {{current_user.username}}
-                    {%else%}
-                        用户注册
-                    {%endif%} 
-                <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{url_for('blog.user_register')}}">用户注册</a></li>
-                    <li><a href="{{url_for('blog.user_login')}}">用户登录</a></li>
-                    {%if current_user.is_authenticated%}
-                        <li><a href="{{url_for('blog.user_logout')}}">用户退出</a></li>
-                    {%endif%}
-                </ul>
-            </div>
-        </div>        
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a class="navbar-nav" href="{{url_for('blog.index')}}">主页</a></li>
+                {%if current_user.is_authenticated%}
+                <li><a class="navbar-nav" href="{{url_for('blog.create_post')}}">创建博文</a></li>
+                {%endif%}
+                <li class="nav navbar-nav">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                        {%if current_user.is_authenticated%}
+                            您好：{{current_user.username}}！
+                        {%else%}
+                            注册/登录
+                        {%endif%} 
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{url_for('blog.user_register')}}">用户注册</a></li>
+                        <li><a href="{{url_for('blog.user_login')}}">用户登录</a></li>
+                        {%if current_user.is_authenticated%}
+                            <li><a href="{{url_for('blog.user_logout')}}">用户退出</a></li>
+                        {%endif%}
+                    </ul>
+                </li>            
+            </ul>
+        </div>
     </div>
-</div>
+</nav>
 {% endblock %} 
 {% block content %}
     <div class="container-fluid">

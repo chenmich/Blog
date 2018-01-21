@@ -49,10 +49,10 @@ class Post(db.Model, BasePost):
         return _writers
     @property
     def first_paragraph(self):
-        return 'The first_writer property is not impletemented!'
+        return '###The first_writer property is not impletemented!'
     @property
     def content(self):
-        return "The post_content property is not impletemented!"
+        return "###The post_content property is not impletemented!"
 
     def __repr__(self):
         return '<Post  %r>'%self.title
