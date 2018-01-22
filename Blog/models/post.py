@@ -34,6 +34,12 @@ class Post(db.Model, BasePost):
     writers = db.relationship('Post_User', back_populates='post')
     #i can think that the property tilte is defined 
     title = db.Column(db.String(256), nullable=False)
+    published = db.Column(db.Boolean())
+    content = db.Column(db.Text(), nullable=True)
+    created_date = db.Column(db.Date(), nullable=True)
+    published_date = db.Column(db.Date(), nullable=True)
+    
+    
     @property
     def first_writer(self):
         for writer in self.writers:
@@ -50,9 +56,7 @@ class Post(db.Model, BasePost):
     @property
     def first_paragraph(self):
         return '###The first_writer property is not impletemented!'
-    @property
-    def content(self):
-        return "###The post_content property is not impletemented!"
+
 
     def __repr__(self):
         return '<Post  %r>'%self.title

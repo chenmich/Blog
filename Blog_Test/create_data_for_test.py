@@ -95,6 +95,14 @@ def create_base_row(db):
         db.session.add_all([micheal, lrq, zyq, 
                             kfl, zl, ny, lzj])
         db.session.commit()
+if __name__ == '__main__':
+        app = create_app('development')
+        app_context = app.app_context()
+        app_context.push()
+        db.drop_all()
+        db.create_all()
+        create_base_row(db)
+        app_context.pop()
 
 
     
